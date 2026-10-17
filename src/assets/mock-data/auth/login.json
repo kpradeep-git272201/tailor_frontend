@@ -1,7 +1,7 @@
 {
   "testMobileNumber": "9999999999",
   "countryCode": "+91",
-  "testOtp": "1234",
+  "testOtp": "123456",
   "otpResendCooldownSeconds": 30,
 
   "mockSessionDurationSeconds": 86400,

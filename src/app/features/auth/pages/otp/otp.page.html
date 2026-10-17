@@ -17,7 +17,7 @@
       <!-- Heading & Instructions -->
       <div class="otp-header">
         <h1 class="otp-heading">OTP Verification</h1>
-        <p class="otp-instruction">Enter the 4-digit code sent to</p>
+        <p class="otp-instruction">Enter the 6-digit code sent to</p>
         
         <div class="mobile-row" (click)="onEditMobile()" role="button" tabindex="0" title="Click to edit mobile number">
           <span class="phone-number">{{ formattedMobile }}</span>
@@ -27,26 +27,53 @@
         </div>
       </div>
 
-      <!-- 4 OTP Input Boxes (Faithful to Reference Image) -->
-      <div class="otp-boxes-container" (paste)="onPaste($event)">
-        @for (digit of otpDigits(); track $index) {
+      <!-- Capsule Pill OTP Input (Matching Reference Image 1) -->
+      <div class="otp-pill-wrapper">
+        <div
+          class="otp-pill-container"
+          [class.focused]="isFocused()"
+          (click)="focusCurrent()"
+          (paste)="onPaste($event)"
+          tabindex="0"
+          role="group"
+          aria-label="6-digit OTP Input"
+        >
+          <!-- Hidden accessible native input -->
           <input
-            #otpBox
+            #hiddenOtpInput
             type="tel"
             inputmode="numeric"
             pattern="[0-9]*"
-            maxlength="1"
+            maxlength="6"
             autocomplete="one-time-code"
-            [value]="digit"
-            (input)="onInput($index, $event)"
-            (keydown)="onKeyDown($index, $event)"
-            (focus)="onFocus($index)"
-            class="otp-box"
-            [class.active]="activeBoxIndex() === $index"
-            [class.has-value]="digit !== ''"
-            [attr.aria-label]="'Digit ' + ($index + 1)"
+            class="otp-hidden-native-input"
+            [value]="completeOtp"
+            (input)="onHiddenInput($event)"
+            (keydown)="onHiddenKeyDown($event)"
+            (focus)="onInputFocus()"
+            (blur)="onInputBlur()"
+            (paste)="onPaste($event)"
+            aria-label="Enter 6-digit verification code"
           />
-        }
+
+          <!-- Visual capsule: 6 slots with dynamic blinking cursor -->
+          <div class="otp-pill-content">
+            @for (slot of [0, 1, 2, 3, 4, 5]; track slot) {
+              <!-- Blinking cursor before slot if cursor matches this insertion index -->
+              @if (isFocused() && !isOtpComplete && cursorPosition === slot) {
+                <div class="otp-blinking-cursor" aria-hidden="true"></div>
+              }
+
+              <div class="otp-slot" [class.filled]="otpDigits()[slot] !== ''" [class.active]="isFocused() && activeBoxIndex() === slot">
+                @if (otpDigits()[slot]) {
+                  <span class="otp-digit">{{ otpDigits()[slot] }}</span>
+                } @else {
+                  <span class="otp-dot"></span>
+                }
+              </div>
+            }
+          </div>
+        </div>
       </div>
 
       <!-- Resend OTP Countdown Row -->
@@ -106,13 +133,16 @@
         </button>
       </div>
 
-      <!-- Footer: Change Mobile Number or Go Back -->
+      <!-- Footer: Matching Reference Image 3 (Change Mobile Number   Go Back) -->
       <footer class="otp-footer">
-        <button type="button" class="change-mobile-link" (click)="onEditMobile()">
-          <span class="bold-text">Change Mobile Number</span>
-          <span class="regular-text"> or </span>
-          <span class="bold-text">Go Back</span>
-        </button>
+        <div class="footer-links-row">
+          <button type="button" class="footer-link change-mobile-link" (click)="onEditMobile()">
+            Change Mobile Number
+          </button>
+          <button type="button" class="footer-link go-back-link" (click)="onEditMobile()">
+            Go Back
+          </button>
+        </div>
       </footer>
 
     </div>

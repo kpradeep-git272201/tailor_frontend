@@ -92,41 +92,107 @@
   }
 }
 
-/* 4 OTP Digit Boxes (Exact match to Reference Image) */
-.otp-boxes-container {
+/* Capsule Pill OTP Input (Matching Reference Image 1) */
+.otp-pill-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
   width: 100%;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
-.otp-box {
-  width: 58px;
-  height: 60px;
-  border-radius: 16px;
-  background: #ffffff;
-  border: 1.5px solid #dce4ea;
+.otp-pill-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 260px;
+  max-width: 90%;
+  height: 52px;
+  background: #f8f5ee; /* Exact warm cream from Reference Image 1 */
+  border: 1.5px solid #e2ded2;
+  border-radius: 9999px; /* Pill / Capsule shape */
   box-shadow: 0 2px 6px rgba(15, 36, 59, 0.04);
-  font-family: var(--font-body);
-  font-size: 26px;
-  font-weight: 600;
-  color: var(--app-color-text-title);
-  text-align: center;
-  outline: none;
-  caret-color: var(--app-color-teal-accent, #2e7d73);
+  cursor: text;
   transition: all 0.2s ease;
+  user-select: none;
 
-  &.active,
-  &:focus {
+  &.focused,
+  &:focus-within {
     border-color: var(--app-color-teal-accent, #2e7d73);
     border-width: 2px;
     box-shadow: 0 0 0 3px rgba(46, 125, 115, 0.12);
   }
+}
 
-  &.has-value {
-    border-color: #cbd5e1;
+.otp-hidden-native-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  border: none;
+  background: transparent;
+  cursor: text;
+  z-index: 2;
+  outline: none;
+  font-size: 16px; /* Prevents auto-zoom on iOS */
+}
+
+.otp-pill-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 16px;
+  gap: 14px;
+}
+
+.otp-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 28px;
+  position: relative;
+}
+
+.otp-dot {
+  width: 6.5px;
+  height: 6.5px;
+  border-radius: 50%;
+  background: #9c9c9e; /* Exact grey dot color from Reference Image 1 */
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.otp-digit {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--app-color-text-title, #102a43);
+  line-height: 1;
+}
+
+/* Dynamic Blinking Caret Cursor */
+.otp-blinking-cursor {
+  width: 2px;
+  height: 20px;
+  background: var(--app-color-teal-accent, #2e7d73);
+  border-radius: 1px;
+  margin: 0 -1px;
+  flex-shrink: 0;
+  animation: otp-caret-blink 1s ease-in-out infinite;
+}
+
+@keyframes otp-caret-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }
 
@@ -170,7 +236,7 @@
   width: 100%;
 }
 
-/* Footer: Change Mobile Number or Go Back */
+/* Footer: Matching Reference Image 3 (Change Mobile Number   Go Back) */
 .otp-footer {
   margin-top: auto;
   padding-top: 36px;
@@ -179,28 +245,35 @@
   width: 100%;
 }
 
-.change-mobile-link {
+.footer-links-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-link {
   background: none;
   border: none;
-  padding: 8px 12px;
+  padding: 6px 4px;
   cursor: pointer;
+  font-family: var(--font-body);
   font-size: 13.5px;
+  font-weight: 700;
   line-height: 1.4;
   transition: opacity 0.2s ease;
 
   &:hover {
     opacity: 0.8;
   }
+}
 
-  .bold-text {
-    font-weight: 700;
-    color: var(--app-color-text-title);
-  }
+.change-mobile-link {
+  color: #373d42; /* Dark charcoal/slate from Reference Image 3 */
+}
 
-  .regular-text {
-    color: #7a8995;
-    font-weight: 400;
-  }
+.go-back-link {
+  color: var(--app-color-teal-accent, #2e7d73); /* Teal accent from Reference Image 3 */
 }
 
 @media (min-width: 768px) {

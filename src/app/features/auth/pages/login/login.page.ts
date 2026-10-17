@@ -210,6 +210,7 @@ export class LoginPage implements OnInit {
 
     this.isLoading.set(true);
     this.clearErrors();
+    this.otpForm.reset();
 
     const mobileNumber = this.mobileForm.controls.mobile.value;
 

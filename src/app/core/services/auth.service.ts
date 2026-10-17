@@ -98,8 +98,8 @@ export class AuthService {
     const cleanMobile = payload.mobileNumber.replace(/\D/g, '').trim();
     const cleanOtp = payload.otp.replace(/\D/g, '').trim();
 
-    if (!cleanOtp || cleanOtp.length < 4) {
-      return throwError(() => new Error('Please enter the full 4-digit OTP code.'));
+    if (!cleanOtp || cleanOtp.length < 6) {
+      return throwError(() => new Error('Please enter the full 6-digit OTP code.'));
     }
 
     return this.http.get<AuthMockData>(this.mockDataUrl).pipe(
@@ -111,8 +111,7 @@ export class AuthService {
           );
         }
 
-        // Allow configured mock testOtp (e.g. 1234) or reference screenshot digits (0234)
-        const isMatch = cleanOtp === mockConfig.testOtp || cleanOtp === '0234' || cleanOtp === '1234';
+        const isMatch = cleanOtp === mockConfig.testOtp || cleanOtp === '123456';
         if (!isMatch) {
           return throwError(
             () =>

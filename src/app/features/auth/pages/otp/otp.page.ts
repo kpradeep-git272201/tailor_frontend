@@ -6,6 +6,7 @@ import {
   signal,
   inject,
   DestroyRef,
+  ViewChild,
   ViewChildren,
   QueryList,
   ElementRef,
@@ -36,13 +37,15 @@ export class OtpPage implements OnInit, AfterViewInit {
   private readonly authService = inject(AuthService);
   private readonly destroyRef = inject(DestroyRef);
 
+  @ViewChild('hiddenOtpInput') public hiddenOtpInput?: ElementRef<HTMLInputElement>;
   @ViewChildren('otpBox') private otpBoxElements!: QueryList<ElementRef<HTMLInputElement>>;
 
   // Reactive states
   public readonly mobileNumber = signal<string>('9999999999');
   public readonly countryCode = signal<string>('+91');
-  public readonly otpDigits = signal<string[]>(['', '', '', '']);
-  public readonly activeBoxIndex = signal<number>(1); // 1-indexed or focused index
+  public readonly otpDigits = signal<string[]>(['', '', '', '', '', '']);
+  public readonly activeBoxIndex = signal<number>(0);
+  public readonly isFocused = signal<boolean>(false);
   public readonly isLoading = signal<boolean>(false);
   public readonly errorMessage = signal<string | null>(null);
   public readonly successMessage = signal<string | null>(null);
@@ -90,14 +93,21 @@ export class OtpPage implements OnInit, AfterViewInit {
   }
 
   /**
-   * Combined 4-digit OTP string
+   * Combined 6-digit OTP string
    */
   public get completeOtp(): string {
     return this.otpDigits().join('');
   }
 
   public get isOtpComplete(): boolean {
-    return this.completeOtp.length === 4;
+    return this.completeOtp.length === 6;
+  }
+
+  /**
+   * Current cursor insertion index (0 to 6)
+   */
+  public get cursorPosition(): number {
+    return this.completeOtp.length;
   }
 
   /**
@@ -116,11 +126,11 @@ export class OtpPage implements OnInit, AfterViewInit {
       this.clearErrors();
 
       // Move focus to next input if available
-      if (index < 3) {
+      if (index < 5) {
         this.focusBox(index + 1);
       } else {
         input.blur();
-        // Auto-verify if all 4 digits entered
+        // Auto-verify if all 6 digits entered
         if (this.isOtpComplete && !this.isLoading()) {
           this.onVerify();
         }
@@ -151,7 +161,7 @@ export class OtpPage implements OnInit, AfterViewInit {
     } else if (event.key === 'ArrowLeft' && index > 0) {
       this.focusBox(index - 1);
       event.preventDefault();
-    } else if (event.key === 'ArrowRight' && index < 3) {
+    } else if (event.key === 'ArrowRight' && index < 5) {
       this.focusBox(index + 1);
       event.preventDefault();
     } else if (event.key === 'Enter' && this.isOtpComplete) {
@@ -160,15 +170,15 @@ export class OtpPage implements OnInit, AfterViewInit {
   }
 
   /**
-   * Handle clipboard paste (e.g. user pastes "1234" or "0234")
+   * Handle clipboard paste (e.g. user pastes "123456")
    */
   public onPaste(event: ClipboardEvent): void {
     event.preventDefault();
     const clipboardData = event.clipboardData?.getData('text') || '';
-    const cleanNumbers = clipboardData.replace(/\D/g, '').slice(0, 4);
+    const cleanNumbers = clipboardData.replace(/\D/g, '').slice(0, 6);
 
     if (cleanNumbers.length > 0) {
-      const digits = ['', '', '', ''];
+      const digits = ['', '', '', '', '', ''];
       for (let i = 0; i < cleanNumbers.length; i++) {
         digits[i] = cleanNumbers[i];
       }
@@ -181,24 +191,70 @@ export class OtpPage implements OnInit, AfterViewInit {
 
       this.clearErrors();
 
-      const nextFocus = Math.min(cleanNumbers.length, 3);
+      const nextFocus = Math.min(cleanNumbers.length, 5);
       this.focusBox(nextFocus);
 
-      if (cleanNumbers.length === 4 && !this.isLoading()) {
+      if (cleanNumbers.length === 6 && !this.isLoading()) {
         this.onVerify();
       }
     }
   }
 
+  public focusCurrent(): void {
+    this.focusBox(Math.min(this.completeOtp.length, 5));
+  }
+
+  public onInputFocus(): void {
+    this.isFocused.set(true);
+    this.activeBoxIndex.set(Math.min(this.completeOtp.length, 5));
+  }
+
+  public onInputBlur(): void {
+    this.isFocused.set(false);
+  }
+
+  public onHiddenInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const cleanNumbers = input.value.replace(/\D/g, '').slice(0, 6);
+    input.value = cleanNumbers;
+
+    const digits = ['', '', '', '', '', ''];
+    for (let i = 0; i < cleanNumbers.length; i++) {
+      digits[i] = cleanNumbers[i];
+    }
+    this.otpDigits.set(digits);
+    this.activeBoxIndex.set(Math.min(cleanNumbers.length, 5));
+    this.clearErrors();
+
+    if (cleanNumbers.length === 6 && !this.isLoading()) {
+      this.onVerify();
+    }
+  }
+
+  public onHiddenKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' && this.isOtpComplete) {
+      this.onVerify();
+    }
+  }
+
   public onFocus(index: number): void {
     this.activeBoxIndex.set(index);
+    this.isFocused.set(true);
+    if (this.hiddenOtpInput?.nativeElement) {
+      this.hiddenOtpInput.nativeElement.focus();
+    }
     const box = this.otpBoxElements?.get(index)?.nativeElement;
     if (box) {
       box.select();
     }
   }
 
-  private focusBox(index: number): void {
+  public focusBox(index: number): void {
+    this.activeBoxIndex.set(index);
+    this.isFocused.set(true);
+    if (this.hiddenOtpInput?.nativeElement) {
+      this.hiddenOtpInput.nativeElement.focus();
+    }
     const box = this.otpBoxElements?.get(index)?.nativeElement;
     if (box) {
       box.focus();
@@ -246,6 +302,25 @@ export class OtpPage implements OnInit, AfterViewInit {
   }
 
   /**
+   * Resets all OTP input boxes and focuses the first slot
+   */
+  public clearOtp(): void {
+    this.otpDigits.set(['', '', '', '', '', '']);
+    this.activeBoxIndex.set(0);
+    if (this.hiddenOtpInput?.nativeElement) {
+      this.hiddenOtpInput.nativeElement.value = '';
+    }
+    this.otpBoxElements?.forEach((elRef) => {
+      if (elRef?.nativeElement) {
+        elRef.nativeElement.value = '';
+      }
+    });
+    setTimeout(() => {
+      this.focusBox(0);
+    }, 50);
+  }
+
+  /**
    * Resend OTP request
    */
   public onResendOtp(): void {
@@ -253,6 +328,7 @@ export class OtpPage implements OnInit, AfterViewInit {
       return;
     }
 
+    this.clearOtp();
     this.isLoading.set(true);
     this.clearErrors();
 
