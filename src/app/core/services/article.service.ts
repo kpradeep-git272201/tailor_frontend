@@ -111,6 +111,14 @@ export class ArticleService {
             rating: 4.8,
             tag: 'Popular',
           },
+          {
+            id: 'fab_shirt_blue_cloth',
+            name: 'Classic Indigo Cotton',
+            material: 'cotton',
+            imageUrl: 'assets/images/articles/fabric_blue_cloth.png',
+            price: 499,
+            rating: 4.8,
+          },
         ],
       },
       {

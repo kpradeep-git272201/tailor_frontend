@@ -2,7 +2,19 @@ import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IonContent } from '@ionic/angular';
+import {
+  IonContent,
+  IonThumbnail,
+  IonIcon,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+} from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { checkmarkCircle } from 'ionicons/icons';
 import { ArticleService } from '../../../../core/services/article.service';
 import {
   ArticleDetail,
@@ -21,7 +33,19 @@ export interface NavTabItem {
   templateUrl: './articles.page.html',
   styleUrls: ['./articles.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonContent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonContent,
+    IonThumbnail,
+    IonIcon,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+  ],
 })
 export class ArticlesPage implements OnInit {
   private readonly router = inject(Router);
@@ -43,6 +67,10 @@ export class ArticlesPage implements OnInit {
     { id: 'menu', label: 'Menu', icon: 'menu' },
   ];
 
+  constructor() {
+    addIcons({ checkmarkCircle, 'checkmark-circle': checkmarkCircle });
+  }
+
   // Filtered fabrics list based on search and material selection
   public readonly filteredFabrics = computed(() => {
     const art = this.article();
@@ -54,7 +82,6 @@ export class ArticlesPage implements OnInit {
       const match = list.filter(
         (f) => f.material?.toLowerCase() === materialId.toLowerCase()
       );
-      // If specific material items exist, show them; otherwise keep all to avoid blank screen
       if (match.length > 0) {
         list = match;
       }
@@ -74,7 +101,6 @@ export class ArticlesPage implements OnInit {
   });
 
   public ngOnInit(): void {
-    // Listen to route param changes to handle direct navigation, route changes and refresh
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id') || 'art_shirt';
       this.loadArticle(id);
@@ -118,7 +144,6 @@ export class ArticlesPage implements OnInit {
   }
 
   public onSelectFabric(fabric: ArticleFabricItem): void {
-    // Navigate to fabric list or customize flow
     this.router.navigate(['/fabrics']);
   }
 
