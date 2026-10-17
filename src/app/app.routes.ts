@@ -17,8 +17,14 @@ export const routes: Routes = [
       import('./home/home.page').then((m) => m.HomePage),
   },
   {
+    path: 'otp',
+    loadComponent: () =>
+      import('./features/auth/pages/otp/otp.page').then((m) => m.OtpPage),
+  },
+  {
     path: '**',
     redirectTo: 'login',
   },
 ];
+
 

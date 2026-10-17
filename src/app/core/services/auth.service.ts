@@ -43,7 +43,17 @@ export class AuthService {
   private readonly _currentUser = signal<UserProfile | null>(this.getStoredSession()?.user ?? null);
   public readonly currentUser = this._currentUser.asReadonly();
 
+  private readonly _pendingMobile = signal<string>('9999999999');
+  public readonly pendingMobile = this._pendingMobile.asReadonly();
+
   constructor() {}
+
+  public setPendingMobile(mobile: string): void {
+    const clean = mobile.replace(/\D/g, '').trim();
+    if (clean) {
+      this._pendingMobile.set(clean);
+    }
+  }
 
   /**
    * Request OTP for a given mobile number.
@@ -69,6 +79,8 @@ export class AuthService {
           );
         }
 
+        this.setPendingMobile(cleanMobile);
+
         return of({
           success: true,
           message: `OTP sent successfully to ${payload.countryCode} ${cleanMobile}`,
@@ -87,7 +99,7 @@ export class AuthService {
     const cleanOtp = payload.otp.replace(/\D/g, '').trim();
 
     if (!cleanOtp || cleanOtp.length < 4) {
-      return throwError(() => new Error('Please enter the full OTP code.'));
+      return throwError(() => new Error('Please enter the full 4-digit OTP code.'));
     }
 
     return this.http.get<AuthMockData>(this.mockDataUrl).pipe(
@@ -99,7 +111,9 @@ export class AuthService {
           );
         }
 
-        if (cleanOtp !== mockConfig.testOtp) {
+        // Allow configured mock testOtp (e.g. 1234) or reference screenshot digits (0234)
+        const isMatch = cleanOtp === mockConfig.testOtp || cleanOtp === '0234' || cleanOtp === '1234';
+        if (!isMatch) {
           return throwError(
             () =>
               new Error(
@@ -107,6 +121,7 @@ export class AuthService {
               )
           );
         }
+
 
         const session: AuthSession = {
           token: mockConfig.mockAuthToken,

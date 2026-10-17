@@ -1,0 +1,218 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.otp-page-content {
+  --background: var(--app-color-bg, #ffffff);
+}
+
+.otp-wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: env(safe-area-inset-top, 24px) 24px env(safe-area-inset-bottom, 20px) 24px;
+}
+
+.otp-inner {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+/* Hero Illustration */
+.hero-art-container {
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+.hero-art-image {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Header & Mobile info */
+.otp-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.otp-heading {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--app-color-text-title);
+  margin: 0 0 6px 0;
+  letter-spacing: -0.01em;
+}
+
+.otp-instruction {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: #627d92;
+  margin: 0 0 4px 0;
+  font-weight: 400;
+}
+
+.mobile-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  padding: 2px 6px;
+  border-radius: var(--app-radius-sm);
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  .phone-number {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--app-color-text-title);
+    letter-spacing: 0.02em;
+  }
+
+  .edit-icon {
+    color: var(--app-color-teal-accent, #2e7d73);
+    flex-shrink: 0;
+  }
+}
+
+/* 4 OTP Digit Boxes (Exact match to Reference Image) */
+.otp-boxes-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.otp-box {
+  width: 58px;
+  height: 60px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1.5px solid #dce4ea;
+  box-shadow: 0 2px 6px rgba(15, 36, 59, 0.04);
+  font-family: var(--font-body);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--app-color-text-title);
+  text-align: center;
+  outline: none;
+  caret-color: var(--app-color-teal-accent, #2e7d73);
+  transition: all 0.2s ease;
+
+  &.active,
+  &:focus {
+    border-color: var(--app-color-teal-accent, #2e7d73);
+    border-width: 2px;
+    box-shadow: 0 0 0 3px rgba(46, 125, 115, 0.12);
+  }
+
+  &.has-value {
+    border-color: #cbd5e1;
+  }
+}
+
+/* Resend Countdown */
+.resend-container {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.resend-countdown-text {
+  font-size: 13.5px;
+  color: #7a8995;
+  margin: 0;
+  font-weight: 400;
+}
+
+.resend-expired-text {
+  font-size: 13.5px;
+  color: #7a8995;
+  margin: 0;
+
+  .resend-action-btn {
+    background: none;
+    border: none;
+    color: var(--app-color-teal-accent, #2e7d73);
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0 0 0 4px;
+  }
+}
+
+/* Primary Action Button */
+.action-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.verify-btn {
+  width: 100%;
+}
+
+/* Footer: Change Mobile Number or Go Back */
+.otp-footer {
+  margin-top: auto;
+  padding-top: 36px;
+  padding-bottom: max(14px, env(safe-area-inset-bottom));
+  text-align: center;
+  width: 100%;
+}
+
+.change-mobile-link {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13.5px;
+  line-height: 1.4;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  .bold-text {
+    font-weight: 700;
+    color: var(--app-color-text-title);
+  }
+
+  .regular-text {
+    color: #7a8995;
+    font-weight: 400;
+  }
+}
+
+@media (min-width: 768px) {
+  .otp-wrapper {
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .otp-inner {
+    padding: 32px 28px 24px 28px;
+    border-radius: 28px;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(15, 36, 59, 0.05);
+  }
+}

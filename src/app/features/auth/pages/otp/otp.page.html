@@ -1,0 +1,120 @@
+<ion-content [fullscreen]="true" class="otp-page-content">
+  <div class="otp-wrapper">
+    <div class="otp-inner">
+
+      <!-- Hero Tailor Illustration (Matching Reference Design) -->
+      <div class="hero-art-container">
+        <img
+          src="assets/images/tailor_hero_art.png"
+          alt="Tailor App Illustration"
+          class="hero-art-image"
+          width="180"
+          height="180"
+          priority
+        />
+      </div>
+
+      <!-- Heading & Instructions -->
+      <div class="otp-header">
+        <h1 class="otp-heading">OTP Verification</h1>
+        <p class="otp-instruction">Enter the 4-digit code sent to</p>
+        
+        <div class="mobile-row" (click)="onEditMobile()" role="button" tabindex="0" title="Click to edit mobile number">
+          <span class="phone-number">{{ formattedMobile }}</span>
+          <svg class="edit-icon" viewBox="0 0 20 20" fill="currentColor" width="16" height="16" aria-hidden="true">
+            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- 4 OTP Input Boxes (Faithful to Reference Image) -->
+      <div class="otp-boxes-container" (paste)="onPaste($event)">
+        @for (digit of otpDigits(); track $index) {
+          <input
+            #otpBox
+            type="tel"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            maxlength="1"
+            autocomplete="one-time-code"
+            [value]="digit"
+            (input)="onInput($index, $event)"
+            (keydown)="onKeyDown($index, $event)"
+            (focus)="onFocus($index)"
+            class="otp-box"
+            [class.active]="activeBoxIndex() === $index"
+            [class.has-value]="digit !== ''"
+            [attr.aria-label]="'Digit ' + ($index + 1)"
+          />
+        }
+      </div>
+
+      <!-- Resend OTP Countdown Row -->
+      <div class="resend-container">
+        @if (resendCountdown() > 0) {
+          <p class="resend-countdown-text">
+            Resend OTP in 0:{{ resendCountdown() < 10 ? '0' + resendCountdown() : resendCountdown() }}
+          </p>
+        } @else {
+          <p class="resend-expired-text">
+            Didn't receive code?
+            <button
+              type="button"
+              class="resend-action-btn"
+              (click)="onResendOtp()"
+              [disabled]="isLoading()"
+            >
+              Resend OTP
+            </button>
+          </p>
+        }
+      </div>
+
+      <!-- Feedback Banner (Error or Success) -->
+      @if (errorMessage()) {
+        <div class="app-alert-banner error" role="alert">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+          </svg>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      @if (successMessage()) {
+        <div class="app-alert-banner success" role="status">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <span>{{ successMessage() }}</span>
+        </div>
+      }
+
+      <!-- Primary CTA: Verify & Proceed -->
+      <div class="action-btn-container">
+        <button
+          type="button"
+          class="app-btn-primary verify-btn"
+          (click)="onVerify()"
+          [disabled]="!isOtpComplete || isLoading()"
+        >
+          @if (isLoading()) {
+            <ion-spinner name="crescent" color="light"></ion-spinner>
+            <span>Verifying...</span>
+          } @else {
+            <span>Verify & Proceed</span>
+          }
+        </button>
+      </div>
+
+      <!-- Footer: Change Mobile Number or Go Back -->
+      <footer class="otp-footer">
+        <button type="button" class="change-mobile-link" (click)="onEditMobile()">
+          <span class="bold-text">Change Mobile Number</span>
+          <span class="regular-text"> or </span>
+          <span class="bold-text">Go Back</span>
+        </button>
+      </footer>
+
+    </div>
+  </div>
+</ion-content>

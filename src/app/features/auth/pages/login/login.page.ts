@@ -146,13 +146,10 @@ export class LoginPage implements OnInit {
       .subscribe({
         next: (response) => {
           this.isLoading.set(false);
-          this.step.set('otp');
-          if (response.devHintOtp) {
-            this.testOtpHint.set(response.devHintOtp);
-          }
-          this.startResendTimer(response.cooldownSeconds || 30);
-          this.successMessage.set(response.message);
+          this.authService.setPendingMobile(mobileNumber);
+          this.router.navigate(['/otp'], { queryParams: { mobile: mobileNumber } });
         },
+
         error: (err) => {
           this.isLoading.set(false);
           this.errorMessage.set(

@@ -1,8 +1,9 @@
 {
   "testMobileNumber": "9999999999",
   "countryCode": "+91",
-  "testOtp": "123456",
+  "testOtp": "1234",
   "otpResendCooldownSeconds": 30,
+
   "mockSessionDurationSeconds": 86400,
   "mockUser": {
     "id": "usr_tailor_99999",
