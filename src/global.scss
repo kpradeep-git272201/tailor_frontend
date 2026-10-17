@@ -78,7 +78,7 @@ body, html {
   cursor: pointer;
   padding: 4px 2px 2px 2px;
   border-radius: 0;
-  border-bottom: 2px solid var(--app-color-teal-accent);
+  border-bottom: 2px solid var(--app-color-teal);
   transition: all 0.2s ease;
   text-decoration: none;
   display: inline-block;
@@ -100,7 +100,7 @@ body, html {
   align-items: center;
   height: 52px;
   background: var(--app-color-surface);
-  border: 1px solid rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--app-color-border);
   border-radius: var(--app-radius-pill);
   padding: 0 18px;
   box-shadow: var(--app-shadow-input);
@@ -109,7 +109,7 @@ body, html {
   &:focus-within {
     box-shadow: var(--app-shadow-input-focus);
     background: #ffffff;
-    border-color: rgba(15, 36, 59, 0.15);
+    border-color: var(--app-color-teal);
   }
 
   &.has-error {

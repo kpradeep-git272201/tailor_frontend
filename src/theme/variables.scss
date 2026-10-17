@@ -1,7 +1,12 @@
 /**
  * Global Theme & Design Tokens for Tailor App
  * ----------------------------------------------------------------------------
- * Clean white background with tailor palette matching Reference Images.
+ * Curated Brand Palette:
+ * - Primary Navy: #142B4A (Headings, primary buttons, bottom navigation, brand)
+ * - Warm Ivory:   #F8F6F0 (Main page background - 60% rule)
+ * - Teal:         #188C83 (Active states, links, selection indicators, progress)
+ * - Marigold:     #DCA134 (Small highlights, star ratings, discount badges)
+ * - White:        #FFFFFF (Cards, inputs, surfaces, elevated containers)
  */
 
 :root {
@@ -9,54 +14,71 @@
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* Brand Colors */
-  --app-color-primary: #0f243b;
-  --app-color-primary-rgb: 15, 36, 59;
+  /* Brand Colors - Exact Palette */
+  --app-color-primary: #142B4A;
+  --app-color-primary-rgb: 20, 43, 74;
   --app-color-primary-contrast: #ffffff;
-  --app-color-primary-shade: #0a1b2d;
-  --app-color-primary-tint: #1c3550;
+  --app-color-primary-shade: #10223b;
+  --app-color-primary-tint: #2c405c;
 
-  --app-color-primary-gradient: #0f243b;
-  --app-color-primary-gradient-hover: #081625;
+  --app-color-primary-gradient: #142B4A;
+  --app-color-primary-gradient-hover: #0e1f36;
 
-  /* Accent Muted Teal for Subtitle, Underlines & Links */
-  --app-color-teal-accent: #2e7d73;
-  --app-color-gold: #d49a32;
+  /* Warm Ivory Background (60%) */
+  --app-color-bg: #F8F6F0;
+  --app-color-bg-ivory: #F8F6F0;
 
-  /* Pure White Background */
-  --app-color-bg: #ffffff;
-  --app-color-surface: #f1efeb;
-  --app-color-border: #e4e0d6;
-  --app-color-border-focused: #0f243b;
+  /* Teal Accent (10%) */
+  --app-color-teal: #188C83;
+  --app-color-teal-accent: #188C83;
+  --app-color-teal-rgb: 24, 140, 131;
+  --app-color-teal-tint: #e6f6f4;
+  --app-color-teal-on-dark: #2dd4bf;
+
+  /* Marigold Highlight (10%) */
+  --app-color-marigold: #DCA134;
+  --app-color-gold: #DCA134;
+  --app-color-marigold-rgb: 220, 161, 52;
+  --app-color-marigold-tint: #fef7ea;
+
+  /* Pure White Surface */
+  --app-color-surface: #FFFFFF;
+  --app-color-surface-elevated: #FFFFFF;
+  --app-color-border: #E5E0D6;
+  --app-color-border-subtle: rgba(20, 43, 74, 0.08);
+  --app-color-border-focused: #142B4A;
 
   /* Text Colors */
-  --app-color-text-title: #0f2236;
-  --app-color-text-subtitle: #2e7d73;
+  --app-color-text-title: #142B4A;
+  --app-color-text-subtitle: #188C83;
   --app-color-text-body: #1a2d42;
-  --app-color-text-muted: #8e8c85;
+  --app-color-text-muted: #7a8995;
+  --app-color-text-light: #8da2b5;
 
   /* Feedback Colors */
   --app-color-danger: #e11d48;
   --app-color-danger-bg: #fff1f2;
-  --app-color-success: #059669;
-  --app-color-success-bg: #ecfdf5;
+  --app-color-success: #188C83;
+  --app-color-success-bg: #e6f6f4;
 
   /* Radii */
   --app-radius-sm: 8px;
   --app-radius-md: 14px;
+  --app-radius-lg: 18px;
   --app-radius-pill: 9999px;
 
   /* Shadows */
-  --app-shadow-input: 0 2px 8px rgba(15, 36, 59, 0.04);
-  --app-shadow-input-focus: 0 0 0 3px rgba(15, 36, 59, 0.08);
-  --app-shadow-btn: 0 4px 14px rgba(15, 36, 59, 0.22);
-  --app-shadow-btn-hover: 0 6px 18px rgba(15, 36, 59, 0.3);
+  --app-shadow-input: 0 2px 8px rgba(20, 43, 74, 0.04);
+  --app-shadow-input-focus: 0 0 0 3px rgba(24, 140, 131, 0.15);
+  --app-shadow-btn: 0 4px 14px rgba(20, 43, 74, 0.22);
+  --app-shadow-btn-hover: 0 6px 18px rgba(20, 43, 74, 0.3);
+  --app-shadow-card: 0 3px 12px rgba(20, 43, 74, 0.05);
 
   /* Ionic Theme Overrides */
   --ion-font-family: var(--font-body);
   --ion-color-primary: var(--app-color-primary);
   --ion-color-primary-rgb: var(--app-color-primary-rgb);
   --ion-color-primary-contrast: var(--app-color-primary-contrast);
-  --ion-background-color: #ffffff;
+  --ion-background-color: var(--app-color-bg);
   --ion-text-color: var(--app-color-text-body);
 }

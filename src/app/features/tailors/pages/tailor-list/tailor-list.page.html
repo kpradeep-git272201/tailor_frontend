@@ -4,7 +4,7 @@
     <!-- Top Navigation Header -->
     <header class="tailor-topbar">
       <button type="button" class="back-btn" (click)="onGoBack()" aria-label="Go back to Home">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#102a43" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
       </button>
@@ -85,7 +85,7 @@
               </div>
               @if (tailor.location) {
                 <p class="tailor-location">
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="#1b7a70">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/>
                   </svg>
                   <span>{{ tailor.location }}</span>

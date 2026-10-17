@@ -87,7 +87,7 @@
   }
 
   .edit-icon {
-    color: var(--app-color-teal-accent, #2e7d73);
+    color: var(--app-color-teal);
     flex-shrink: 0;
   }
 }
@@ -109,19 +109,19 @@
   width: 260px;
   max-width: 90%;
   height: 52px;
-  background: #f8f5ee; /* Exact warm cream from Reference Image 1 */
-  border: 1.5px solid #e2ded2;
-  border-radius: 9999px; /* Pill / Capsule shape */
-  box-shadow: 0 2px 6px rgba(15, 36, 59, 0.04);
+  background: var(--app-color-surface);
+  border: 1.5px solid var(--app-color-border);
+  border-radius: var(--app-radius-pill);
+  box-shadow: var(--app-shadow-input);
   cursor: text;
   transition: all 0.2s ease;
   user-select: none;
 
   &.focused,
   &:focus-within {
-    border-color: var(--app-color-teal-accent, #2e7d73);
+    border-color: var(--app-color-teal);
     border-width: 2px;
-    box-shadow: 0 0 0 3px rgba(46, 125, 115, 0.12);
+    box-shadow: 0 0 0 3px rgba(24, 140, 131, 0.15);
   }
 }
 
@@ -172,7 +172,7 @@
   font-family: var(--font-body);
   font-size: 20px;
   font-weight: 600;
-  color: var(--app-color-text-title, #102a43);
+  color: var(--app-color-text-title, #142B4A);
   line-height: 1;
 }
 
@@ -180,7 +180,7 @@
 .otp-blinking-cursor {
   width: 2px;
   height: 20px;
-  background: var(--app-color-teal-accent, #2e7d73);
+  background: var(--app-color-teal);
   border-radius: 1px;
   margin: 0 -1px;
   flex-shrink: 0;
@@ -204,20 +204,20 @@
 
 .resend-countdown-text {
   font-size: 13.5px;
-  color: #7a8995;
+  color: var(--app-color-text-muted);
   margin: 0;
   font-weight: 400;
 }
 
 .resend-expired-text {
   font-size: 13.5px;
-  color: #7a8995;
+  color: var(--app-color-text-muted);
   margin: 0;
 
   .resend-action-btn {
     background: none;
     border: none;
-    color: var(--app-color-teal-accent, #2e7d73);
+    color: var(--app-color-teal);
     font-weight: 700;
     cursor: pointer;
     text-decoration: underline;
@@ -269,11 +269,11 @@
 }
 
 .change-mobile-link {
-  color: #373d42; /* Dark charcoal/slate from Reference Image 3 */
+  color: var(--app-color-text-title);
 }
 
 .go-back-link {
-  color: var(--app-color-teal-accent, #2e7d73); /* Teal accent from Reference Image 3 */
+  color: var(--app-color-teal);
 }
 
 @media (min-width: 768px) {

@@ -4,8 +4,8 @@
 }
 
 .login-page-content {
-  --background: #ffffff;
-  background-color: #ffffff;
+  --background: var(--app-color-bg);
+  background-color: var(--app-color-bg);
 }
 
 
