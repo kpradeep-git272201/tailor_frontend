@@ -1,0 +1,7 @@
+{
+  "name": "tailor_forntend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
