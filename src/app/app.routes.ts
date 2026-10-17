@@ -17,6 +17,20 @@ export const routes: Routes = [
       import('./home/home.page').then((m) => m.HomePage),
   },
   {
+    path: 'fabrics',
+    loadComponent: () =>
+      import('./features/fabrics/pages/fabric-list/fabric-list.page').then(
+        (m) => m.FabricListPage
+      ),
+  },
+  {
+    path: 'tailors',
+    loadComponent: () =>
+      import('./features/tailors/pages/tailor-list/tailor-list.page').then(
+        (m) => m.TailorListPage
+      ),
+  },
+  {
     path: 'otp',
     loadComponent: () =>
       import('./features/auth/pages/otp/otp.page').then((m) => m.OtpPage),

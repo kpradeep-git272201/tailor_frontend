@@ -1,53 +1,490 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar>
-    <ion-title class="app-toolbar-title">Tailor App</ion-title>
-    @if (currentUser()) {
-      <ion-button slot="end" fill="clear" color="primary" (click)="onSignOut()" class="signout-header-btn">
-        Sign Out
-      </ion-button>
-    } @else {
-      <ion-button slot="end" fill="clear" color="primary" (click)="onGoToLogin()" class="login-header-btn">
-        Login
-      </ion-button>
+<ion-content [fullscreen]="true" class="home-ion-content">
+  <div class="home-viewport">
+
+    <!-- Top App Bar -->
+    <header class="home-topbar">
+      <div class="topbar-left">
+        <div class="app-logo-badge" aria-label="Tailor App Logo">
+          <svg viewBox="0 0 40 40" class="logo-svg" width="36" height="36">
+            <circle cx="20" cy="20" r="19" fill="#ecebe6" stroke="#dedcd4" stroke-width="1.5" />
+            <!-- Stylized T with Red/Charcoal Tailor Emblem -->
+            <path d="M12 14h16v3.2h-6.2v14.8h-3.6V17.2H12V14z" fill="#102a43" />
+            <path d="M13 14h4v3.2h-4z" fill="#dc2626" />
+          </svg>
+        </div>
+        <h1 class="topbar-title">Home</h1>
+      </div>
+
+      <div class="topbar-right">
+        <!-- Location Indicator -->
+        <div class="location-pill" aria-label="Current Location: Agra">
+          <svg class="location-pin-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/>
+          </svg>
+          <span class="location-name">{{ homeData()?.location?.city || 'Agra' }}</span>
+        </div>
+
+        <!-- Profile Avatar Button -->
+        <button
+          type="button"
+          class="profile-avatar-btn"
+          (click)="toggleProfileMenu()"
+          aria-label="User Account Menu"
+        >
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Profile Menu Dropdown / Modal Overlay -->
+    @if (isProfileMenuOpen()) {
+      <div class="profile-backdrop" (click)="closeProfileMenu()"></div>
+      <div class="profile-menu-popover">
+        <div class="popover-header">
+          <div class="avatar-circle">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="#ffffff">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+          </div>
+          <div class="user-meta">
+            @if (currentUser()) {
+              <span class="user-name">{{ currentUser()?.name || 'Valued Customer' }}</span>
+              <span class="user-phone">{{ currentUser()?.countryCode }} {{ currentUser()?.mobileNumber }}</span>
+            } @else {
+              <span class="user-name">Guest Mode</span>
+              <span class="user-phone">Browse as guest</span>
+            }
+          </div>
+        </div>
+        <div class="popover-actions">
+          @if (currentUser()) {
+            <button type="button" class="menu-action-btn signout-btn" (click)="onSignOut()">
+              Sign Out
+            </button>
+          } @else {
+            <button type="button" class="menu-action-btn login-btn" (click)="onGoToLogin()">
+              Login / Verify Mobile
+            </button>
+          }
+        </div>
+      </div>
     }
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true" class="home-content">
-  <div class="home-container">
-    <div class="welcome-card">
-      <div class="status-chip" [class.guest]="!currentUser()">
-        <span class="status-indicator"></span>
-        <span>{{ currentUser() ? 'Authenticated Session' : 'Guest Mode (Skipped Login)' }}</span>
-      </div>
+    <!-- Main Scrollable Content -->
+    <main class="home-content-body">
 
-      <h1 class="welcome-title">
-        @if (currentUser()) {
-          Welcome back, {{ currentUser()?.name }}!
-        } @else {
-          Welcome to Tailor App
-        }
-      </h1>
+      <!-- Search Bar -->
+      <section class="search-section">
+        <div class="search-input-pill">
+          <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="search"
+            class="search-field"
+            [placeholder]="homeData()?.searchPlaceholder || 'Search for Shirts, Kurta, etc.'"
+            [value]="searchQuery()"
+            (input)="onSearchInput($event)"
+            aria-label="Search clothing, fabrics and tailors"
+          />
+          @if (searchQuery()) {
+            <button type="button" class="clear-search-btn" (click)="onClearSearch()" aria-label="Clear Search">
+              ✕
+            </button>
+          }
+        </div>
+      </section>
 
-      <p class="welcome-desc">
-        @if (currentUser()) {
-          You are logged in with verified mobile <strong>{{ currentUser()?.countryCode }} {{ currentUser()?.mobileNumber }}</strong>.
-        } @else {
-          You skipped the login screen. You can browse tailor catalogs, fabrics, and services as a guest.
-        }
-      </p>
+      <!-- Articles Section (Directly below search bar matching Reference Image 2) -->
+      <section class="articles-section" aria-label="Garment Articles">
+        <h2 class="articles-heading">Articles</h2>
+        <div class="articles-scroll-track">
+          @for (article of (homeData()?.articles || articles()); track article.id) {
+            <button
+              type="button"
+              class="article-btn"
+              [class.active]="selectedArticle() === article.id"
+              (click)="onSelectArticle(article)"
+              [attr.aria-label]="'Select ' + article.name"
+            >
+              <div class="article-circle">
+                <img
+                  [src]="article.imageUrl"
+                  [alt]="article.name"
+                  class="article-image"
+                  loading="lazy"
+                />
+              </div>
+              <span class="article-title">{{ article.name }}</span>
+            </button>
+          }
+        </div>
+      </section>
 
-      <div class="action-card">
-        @if (currentUser()) {
-          <button type="button" class="app-btn-primary" (click)="onSignOut()">
-            Sign Out
+      <!-- Hero Promotion Carousel Banner (Swipeable & Autoplay) -->
+      <section class="hero-carousel-section" aria-label="Promotional Offers">
+        <div
+          class="hero-banner-card"
+          (touchstart)="onTouchStart($event)"
+          (touchmove)="onTouchMove($event)"
+          (touchend)="onTouchEnd()"
+          (mouseenter)="onBannerMouseEnter()"
+          (mouseleave)="onBannerMouseLeave()"
+        >
+          <!-- Sliding Track -->
+          <div
+            class="hero-carousel-track"
+            [style.transform]="'translateX(-' + (activeBannerIndex() * 100) + '%)'"
+          >
+            @for (banner of (homeData()?.banners || []); track banner.id; let i = $index) {
+              <div class="hero-slide" (click)="onSelectBanner(banner)">
+                <img
+                  [src]="banner.imageUrl"
+                  [alt]="banner.title"
+                  class="hero-banner-image"
+                  [loading]="i === 0 ? 'eager' : 'lazy'"
+                />
+                <!-- Overlaid Promotion Badge Card -->
+                <div class="hero-badge-overlay">
+                  <div class="badge-content">
+                    <h2 class="badge-title">
+                      {{ banner.title }}
+                    </h2>
+                    <p class="badge-subtext">{{ banner.subtext }}</p>
+                  </div>
+                  <button type="button" class="badge-action-arrow" [attr.aria-label]="'View offer for ' + banner.title">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Carousel Pagination Indicator Dots (Dynamic) -->
+        <div class="carousel-dots" role="tablist" aria-label="Banner slides">
+          @for (banner of (homeData()?.banners || []); track banner.id; let i = $index) {
+            <button
+              type="button"
+              [class.dot-pill]="activeBannerIndex() === i"
+              [class.dot-circle]="activeBannerIndex() !== i"
+              [class.active]="activeBannerIndex() === i"
+              (click)="setActiveBanner(i)"
+              [attr.aria-label]="'Slide ' + (i + 1)"
+            ></button>
+          }
+        </div>
+      </section>
+
+      <!-- Two Primary Service Cards -->
+      <section class="service-cards-section" aria-label="Tailoring Services">
+        <div class="service-grid">
+
+          <!-- Left Card: We provide fabric -> Book now -->
+          <article class="service-card" (click)="homeData()?.services?.[0] && onSelectService(homeData()!.services[0])">
+            <div class="service-media">
+              <img
+                src="assets/images/home/service_with_fabric.jpg"
+                alt="Tailor with fabric rolls"
+                class="service-img"
+                loading="lazy"
+              />
+              <div class="service-badge teal-badge">
+                <span>We provide fabric</span>
+              </div>
+            </div>
+            <div class="service-footer">
+              <span class="service-action-label teal-text">Book now</span>
+              <div class="service-arrow-btn teal-bg" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </div>
+            </div>
+          </article>
+
+          <!-- Right Card: Bring your own fabric -> Without Fabric -->
+          <article class="service-card" (click)="homeData()?.services?.[1] && onSelectService(homeData()!.services[1])">
+            <div class="service-media">
+              <img
+                src="assets/images/home/service_without_fabric.jpg"
+                alt="Tailor at sewing machine"
+                class="service-img"
+                loading="lazy"
+              />
+              <div class="service-badge navy-badge">
+                <span>Bring your own fabric</span>
+              </div>
+            </div>
+            <div class="service-footer">
+              <span class="service-action-label navy-text">Without Fabric</span>
+              <div class="service-arrow-btn navy-bg" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Top Rated Fabrics Section -->
+      <section class="section-fabrics" aria-label="Top Rated Fabrics">
+        <div class="section-header-row">
+          <h2 class="section-heading">Top Rated Fabrics</h2>
+          <button type="button" class="view-more-btn" (click)="onViewMoreFabrics()" aria-label="View all fabrics">
+            <span>View More</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
           </button>
-        } @else {
-          <button type="button" class="app-btn-primary" (click)="onGoToLogin()">
-            Login with Mobile Number
+        </div>
+
+        <div class="fabrics-grid">
+          <!-- Card 1: Cotton -->
+          <article class="fabric-card" (click)="homeData()?.topRatedFabrics?.[0] && onSelectFabric(homeData()!.topRatedFabrics[0])">
+            <div class="fabric-media">
+              <img
+                src="assets/images/home/fabric_cotton_blue.jpg"
+                alt="Royal Blue Cotton Fabric"
+                class="fabric-img"
+                loading="lazy"
+              />
+              <div class="rating-badge">
+                <span class="star-icon">&#9733;</span>
+                <span class="rating-value">4.9</span>
+                <span class="star-icon">&#9733;</span>
+              </div>
+            </div>
+            <div class="fabric-info">
+              <h3 class="fabric-title">Cotton</h3>
+              <p class="fabric-subtitle">Premium Quality</p>
+            </div>
+          </article>
+
+          <!-- Card 2: Silk -->
+          <article class="fabric-card" (click)="homeData()?.topRatedFabrics?.[1] && onSelectFabric(homeData()!.topRatedFabrics[1])">
+            <div class="fabric-media">
+              <img
+                src="assets/images/home/fabric_silk_green.jpg"
+                alt="Emerald Green Silk Fabric"
+                class="fabric-img"
+                loading="lazy"
+              />
+              <div class="rating-badge">
+                <span class="star-icon">&#9733;</span>
+                <span class="rating-value">4.8</span>
+                <span class="star-icon">&#9733;</span>
+              </div>
+            </div>
+            <div class="fabric-info">
+              <h3 class="fabric-title">Silk</h3>
+              <p class="fabric-subtitle">Premium Quality</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Top Rated Tailors Section -->
+      <section class="section-tailors" aria-label="Top Rated Tailors">
+        <div class="section-header-row">
+          <h2 class="section-heading">Top Rated Tailors</h2>
+          <button type="button" class="view-more-btn" (click)="onViewMoreTailors()" aria-label="View all tailors">
+            <span>View More</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
           </button>
-        }
+        </div>
+
+        <div class="tailors-grid">
+          <!-- Tailor 1: Master Rajesh -->
+          <article class="tailor-card" (click)="homeData()?.topRatedTailors?.[0] && onSelectTailor(homeData()!.topRatedTailors[0])">
+            <div class="tailor-media">
+              <img
+                src="assets/images/home/tailor_expert_1.jpg"
+                alt="Master Rajesh Tailor"
+                class="tailor-img"
+                loading="lazy"
+              />
+              <div class="rating-badge">
+                <span class="star-icon">&#9733;</span>
+                <span class="rating-value">4.9</span>
+              </div>
+            </div>
+            <div class="tailor-info">
+              <h3 class="tailor-name">Master Rajesh</h3>
+              <p class="tailor-spec">Suits, Shirts &amp; Kurtas</p>
+              <div class="tailor-meta">
+                <span class="tailor-exp">18+ yrs exp</span>
+                <span class="meta-dot">&bull;</span>
+                <span class="tailor-dist">1.2 km away</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tailor 2: Ananya Boutique -->
+          <article class="tailor-card" (click)="homeData()?.topRatedTailors?.[1] && onSelectTailor(homeData()!.topRatedTailors[1])">
+            <div class="tailor-media">
+              <img
+                src="assets/images/home/service_without_fabric.jpg"
+                alt="Ananya Boutique"
+                class="tailor-img"
+                loading="lazy"
+              />
+              <div class="rating-badge">
+                <span class="star-icon">&#9733;</span>
+                <span class="rating-value">4.8</span>
+              </div>
+            </div>
+            <div class="tailor-info">
+              <h3 class="tailor-name">Ananya Boutique</h3>
+              <p class="tailor-spec">Women's Ethnic &amp; Blouses</p>
+              <div class="tailor-meta">
+                <span class="tailor-exp">12+ yrs exp</span>
+                <span class="meta-dot">&bull;</span>
+                <span class="tailor-dist">2.4 km away</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Bottom Spacer to prevent overlap with fixed bottom tab bar -->
+      <div class="bottom-tabbar-spacer"></div>
+
+    </main>
+
+    <!-- Bottom Navigation Tab Bar (Reference Image 1: 6 tabs) -->
+    <nav class="home-bottom-navbar" aria-label="Bottom Navigation">
+      <div class="navbar-tabs-container">
+
+        <!-- Tab 1: Home (Active) -->
+        <button
+          type="button"
+          class="nav-tab-btn"
+          [class.active]="activeTab() === 'home'"
+          (click)="onSelectTab('home')"
+          aria-label="Home"
+        >
+          @if (activeTab() === 'home') {
+            <div class="tab-indicator"></div>
+          }
+          <svg class="nav-tab-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+          <span class="nav-tab-label">Home</span>
+        </button>
+
+        <!-- Tab 2: Tailors -->
+        <button
+          type="button"
+          class="nav-tab-btn"
+          [class.active]="activeTab() === 'tailors'"
+          (click)="onSelectTab('tailors')"
+          aria-label="Tailors"
+        >
+          @if (activeTab() === 'tailors') {
+            <div class="tab-indicator"></div>
+          }
+          <!-- Scissors Icon -->
+          <svg class="nav-tab-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="6" cy="6" r="3"></circle>
+            <circle cx="6" cy="18" r="3"></circle>
+            <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+            <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+            <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+          </svg>
+          <span class="nav-tab-label">Tailors</span>
+        </button>
+
+        <!-- Tab 3: Fabric -->
+        <button
+          type="button"
+          class="nav-tab-btn"
+          [class.active]="activeTab() === 'fabric'"
+          (click)="onSelectTab('fabric')"
+          aria-label="Fabric"
+        >
+          @if (activeTab() === 'fabric') {
+            <div class="tab-indicator"></div>
+          }
+          <!-- Shirt Icon -->
+          <svg class="nav-tab-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 001.23.8l2.22-.44V20a2 2 0 002 2h7.38a2 2 0 002-2V9.52l2.22.44a1 1 0 001.23-.8l.58-3.47a2 2 0 00-1.34-2.23z"/>
+          </svg>
+          <span class="nav-tab-label">Fabric</span>
+        </button>
+
+        <!-- Tab 4: Order -->
+        <button
+          type="button"
+          class="nav-tab-btn"
+          [class.active]="activeTab() === 'order'"
+          (click)="onSelectTab('order')"
+          aria-label="Order"
+        >
+          @if (activeTab() === 'order') {
+            <div class="tab-indicator"></div>
+          }
+          <!-- Book / Ledger / Tape Icon -->
+          <svg class="nav-tab-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            <line x1="8" y1="6" x2="16" y2="6"></line>
+            <line x1="8" y1="10" x2="14" y2="10"></line>
+          </svg>
+          <span class="nav-tab-label">Order</span>
+        </button>
+
+        <!-- Tab 5: Cart -->
+        <button
+          type="button"
+          class="nav-tab-btn"
+          [class.active]="activeTab() === 'cart'"
+          (click)="onSelectTab('cart')"
+          aria-label="Cart"
+        >
+          @if (activeTab() === 'cart') {
+            <div class="tab-indicator"></div>
+          }
+          <!-- Shopping Cart Icon -->
+          <svg class="nav-tab-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="nav-tab-label">Cart</span>
+        </button>
+
+        <!-- Tab 6: Menu -->
+        <button
+          type="button"
+          class="nav-tab-btn"
+          [class.active]="activeTab() === 'menu'"
+          (click)="onSelectTab('menu')"
+          aria-label="Menu"
+        >
+          @if (activeTab() === 'menu') {
+            <div class="tab-indicator"></div>
+          }
+          <!-- 3 Horizontal Lines (Hamburger Menu) -->
+          <svg class="nav-tab-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          <span class="nav-tab-label">Menu</span>
+        </button>
+
       </div>
-    </div>
+    </nav>
+
   </div>
 </ion-content>

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "tailor_rajesh",
+    "name": "Master Rajesh",
+    "specialty": "Suits, Shirts & Kurtas",
+    "experience": "18+ yrs exp",
+    "rating": 4.9,
+    "reviewCount": 164,
+    "distance": "1.2 km away",
+    "location": "Tajganj, Agra",
+    "imageUrl": "assets/images/home/tailor_expert_1.jpg",
+    "availability": "Available Today",
+    "startingPrice": 799,
+    "badge": "Top Rated"
+  },
+  {
+    "id": "tailor_ananya",
+    "name": "Ananya Boutique",
+    "specialty": "Women's Ethnic & Blouses",
+    "experience": "12+ yrs exp",
+    "rating": 4.8,
+    "reviewCount": 142,
+    "distance": "2.4 km away",
+    "location": "Sanjay Place, Agra",
+    "imageUrl": "assets/images/home/service_without_fabric.jpg",
+    "availability": "Next Slot: Tomorrow",
+    "startingPrice": 649,
+    "badge": "Designer Studio"
+  },
+  {
+    "id": "tailor_vikram",
+    "name": "Master Vikram Singh",
+    "specialty": "Bespoke Sherwanis & Tuxedos",
+    "experience": "22+ yrs exp",
+    "rating": 4.9,
+    "reviewCount": 210,
+    "distance": "3.1 km away",
+    "location": "Civil Lines, Agra",
+    "imageUrl": "assets/images/home/service_with_fabric.jpg",
+    "availability": "Slots Open This Week",
+    "startingPrice": 1499,
+    "badge": "Master Craftsman"
+  },
+  {
+    "id": "tailor_modern_cut",
+    "name": "Modern Cut Studio",
+    "specialty": "Contemporary Slim-fit Suits & Trousers",
+    "experience": "9+ yrs exp",
+    "rating": 4.7,
+    "reviewCount": 98,
+    "distance": "0.8 km away",
+    "location": "Fatehabad Rd, Agra",
+    "imageUrl": "assets/images/home/tailor_expert_1.jpg",
+    "availability": "Available Today",
+    "startingPrice": 899,
+    "badge": "Express Fit"
+  }
+]

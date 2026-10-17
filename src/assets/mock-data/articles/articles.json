@@ -1,0 +1,44 @@
+[
+  {
+    "id": "art_shirt",
+    "name": "Shirt",
+    "imageUrl": "assets/images/articles/shirt.jpg",
+    "category": "shirts",
+    "startingPrice": 399
+  },
+  {
+    "id": "art_pant",
+    "name": "Pant",
+    "imageUrl": "assets/images/articles/pant.jpg",
+    "category": "pants",
+    "startingPrice": 499
+  },
+  {
+    "id": "art_kurta",
+    "name": "Kurta",
+    "imageUrl": "assets/images/articles/kurta.jpg",
+    "category": "kurta",
+    "startingPrice": 599
+  },
+  {
+    "id": "art_blouse",
+    "name": "Blouse",
+    "imageUrl": "assets/images/articles/blouse.jpg",
+    "category": "blouse",
+    "startingPrice": 699
+  },
+  {
+    "id": "art_suit",
+    "name": "Suit",
+    "imageUrl": "assets/images/articles/suit.jpg",
+    "category": "suit",
+    "startingPrice": 2499
+  },
+  {
+    "id": "art_sherwani",
+    "name": "Sherwani",
+    "imageUrl": "assets/images/articles/sherwani.jpg",
+    "category": "sherwani",
+    "startingPrice": 3499
+  }
+]

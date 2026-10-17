@@ -1,0 +1,74 @@
+[
+  {
+    "id": "fab_cotton",
+    "name": "Cotton",
+    "subtitle": "Premium Quality",
+    "material": "100% Pure Organic Cotton",
+    "rating": 4.9,
+    "reviewCount": 128,
+    "imageUrl": "assets/images/home/fabric_cotton_blue.jpg",
+    "startingPrice": 499,
+    "tag": "Bestseller",
+    "colors": ["Royal Blue", "Crisp White", "Charcoal Black"]
+  },
+  {
+    "id": "fab_silk",
+    "name": "Silk",
+    "subtitle": "Premium Quality",
+    "material": "Pure Mulberry Raw Silk",
+    "rating": 4.8,
+    "reviewCount": 94,
+    "imageUrl": "assets/images/home/fabric_silk_green.jpg",
+    "startingPrice": 1299,
+    "tag": "Luxury",
+    "colors": ["Emerald Green", "Royal Gold", "Ruby Red"]
+  },
+  {
+    "id": "fab_linen",
+    "name": "Pure Linen",
+    "subtitle": "Breathable Luxury",
+    "material": "Imported French Flax",
+    "rating": 4.9,
+    "reviewCount": 112,
+    "imageUrl": "assets/images/home/hero_banner_linen.jpg",
+    "startingPrice": 899,
+    "tag": "Festival Special",
+    "colors": ["Warm Mustard", "Navy Indigo", "Natural Beige"]
+  },
+  {
+    "id": "fab_giza",
+    "name": "Giza Cotton",
+    "subtitle": "Formal & Crisp",
+    "material": "Long-Staple Egyptian Cotton",
+    "rating": 5.0,
+    "reviewCount": 76,
+    "imageUrl": "assets/images/home/fabric_cotton_blue.jpg",
+    "startingPrice": 999,
+    "tag": "Premium",
+    "colors": ["Sky Blue", "Pale Lavender", "Starch White"]
+  },
+  {
+    "id": "fab_brocade",
+    "name": "Banarasi Silk",
+    "subtitle": "Traditional Brocade",
+    "material": "Zari Embellished Woven Silk",
+    "rating": 4.7,
+    "reviewCount": 63,
+    "imageUrl": "assets/images/home/fabric_silk_green.jpg",
+    "startingPrice": 1699,
+    "tag": "Bridal",
+    "colors": ["Forest Green & Gold", "Crimson & Gold"]
+  },
+  {
+    "id": "fab_khadi",
+    "name": "Khadi Handspun",
+    "subtitle": "Sustainable & Light",
+    "material": "Handwoven Indian Cotton",
+    "rating": 4.8,
+    "reviewCount": 85,
+    "imageUrl": "assets/images/home/hero_banner_linen.jpg",
+    "startingPrice": 649,
+    "tag": "Heritage",
+    "colors": ["Earthy Ochre", "Natural Ecru", "Olive"]
+  }
+]

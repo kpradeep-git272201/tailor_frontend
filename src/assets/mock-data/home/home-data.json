@@ -1,0 +1,144 @@
+{
+  "location": {
+    "city": "Agra",
+    "state": "Uttar Pradesh",
+    "country": "India"
+  },
+  "searchPlaceholder": "Search for Shirts, Kurta, etc.",
+  "articles": [
+    {
+      "id": "art_shirt",
+      "name": "Shirt",
+      "imageUrl": "assets/images/articles/shirt.jpg",
+      "category": "shirts",
+      "startingPrice": 399
+    },
+    {
+      "id": "art_pant",
+      "name": "Pant",
+      "imageUrl": "assets/images/articles/pant.jpg",
+      "category": "pants",
+      "startingPrice": 499
+    },
+    {
+      "id": "art_kurta",
+      "name": "Kurta",
+      "imageUrl": "assets/images/articles/kurta.jpg",
+      "category": "kurta",
+      "startingPrice": 599
+    },
+    {
+      "id": "art_blouse",
+      "name": "Blouse",
+      "imageUrl": "assets/images/articles/blouse.jpg",
+      "category": "blouse",
+      "startingPrice": 699
+    },
+    {
+      "id": "art_suit",
+      "name": "Suit",
+      "imageUrl": "assets/images/articles/suit.jpg",
+      "category": "suit",
+      "startingPrice": 2499
+    },
+    {
+      "id": "art_sherwani",
+      "name": "Sherwani",
+      "imageUrl": "assets/images/articles/sherwani.jpg",
+      "category": "sherwani",
+      "startingPrice": 3499
+    }
+  ],
+  "banners": [
+    {
+      "id": "banner_linen_lux",
+      "title": "Linen Lux - Up to 50% OFF!",
+      "subtext": "Festival Special",
+      "imageUrl": "assets/images/home/hero_banner_linen.jpg",
+      "actionRoute": "/fabrics",
+      "accentColor": "#c59a3f"
+    },
+    {
+      "id": "banner_festive_ethnic",
+      "title": "Royal Silk Collection",
+      "subtext": "Custom Fit in 48 Hours",
+      "imageUrl": "assets/images/home/fabric_silk_green.jpg",
+      "actionRoute": "/fabrics",
+      "accentColor": "#1b7a70"
+    },
+    {
+      "id": "banner_tailor_expert",
+      "title": "Master Tailor Booking",
+      "subtext": "Doorstep Measurement",
+      "imageUrl": "assets/images/home/service_with_fabric.jpg",
+      "actionRoute": "/tailors",
+      "accentColor": "#0f243b"
+    }
+  ],
+  "services": [
+    {
+      "id": "service_with_fabric",
+      "badge": "We provide fabric",
+      "actionLabel": "Book now",
+      "imageUrl": "assets/images/home/service_with_fabric.jpg",
+      "theme": "teal",
+      "route": "/book-tailor"
+    },
+    {
+      "id": "service_without_fabric",
+      "badge": "Bring your own fabric",
+      "actionLabel": "Without Fabric",
+      "imageUrl": "assets/images/home/service_without_fabric.jpg",
+      "theme": "navy",
+      "route": "/custom-stitching"
+    }
+  ],
+  "topRatedFabrics": [
+    {
+      "id": "fab_cotton",
+      "name": "Cotton",
+      "subtitle": "Premium Quality",
+      "rating": 4.9,
+      "imageUrl": "assets/images/home/fabric_cotton_blue.jpg",
+      "startingPrice": 499
+    },
+    {
+      "id": "fab_silk",
+      "name": "Silk",
+      "subtitle": "Premium Quality",
+      "rating": 4.8,
+      "imageUrl": "assets/images/home/fabric_silk_green.jpg",
+      "startingPrice": 1299
+    },
+    {
+      "id": "fab_linen",
+      "name": "Pure Linen",
+      "subtitle": "Breathable Luxury",
+      "rating": 4.9,
+      "imageUrl": "assets/images/home/hero_banner_linen.jpg",
+      "startingPrice": 899
+    }
+  ],
+  "topRatedTailors": [
+    {
+      "id": "tailor_rajesh",
+      "name": "Master Rajesh",
+      "specialty": "Suits, Shirts & Kurtas",
+      "experience": "18+ yrs exp",
+      "rating": 4.9,
+      "distance": "1.2 km away",
+      "imageUrl": "assets/images/home/tailor_expert_1.jpg",
+      "availability": "Available Today"
+    },
+    {
+      "id": "tailor_ananya",
+      "name": "Ananya Boutique",
+      "specialty": "Women's Ethnic & Blouses",
+      "experience": "12+ yrs exp",
+      "rating": 4.8,
+      "distance": "2.4 km away",
+      "imageUrl": "assets/images/home/service_without_fabric.jpg",
+      "availability": "Next Slot: Tomorrow"
+    }
+  ]
+}
