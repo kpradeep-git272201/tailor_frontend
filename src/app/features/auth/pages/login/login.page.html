@@ -1,0 +1,205 @@
+<ion-content [fullscreen]="true" class="login-page-content">
+  <div class="login-wrapper">
+    <div class="login-inner">
+
+      <!-- Hero Tailor Illustration (Exact match to Reference Image) -->
+      <div class="hero-art-container">
+        <img
+          src="assets/images/tailor_hero_art.png"
+          alt="Tailor App Illustration"
+          class="hero-art-image"
+          width="210"
+          height="210"
+          (dblclick)="useTestMobile()"
+          title="Tailor App"
+        />
+      </div>
+
+
+      <!-- Welcome Typography Header -->
+      <div class="login-header">
+        <h1 class="welcome-heading">
+          Welcome to<br />
+          <span class="app-title">Tailor App</span>
+        </h1>
+        <p class="tagline">Your perfect fit starts here.</p>
+      </div>
+
+      <!-- STEP 1: Mobile Number Input Flow -->
+      @if (step() === 'mobile') {
+        <div class="step-container" [formGroup]="mobileForm">
+
+          <!-- Pill-shaped Mobile Input (Exact match to Reference Image 1) -->
+          <div class="app-input-pill" [class.has-error]="mobileForm.controls.mobile.invalid && mobileForm.controls.mobile.touched">
+            <div class="app-country-prefix">
+              <img src="assets/icon/flag-in.svg" alt="India Flag" class="flag-icon" width="24" height="16" />
+              <span class="country-code">{{ countryCode }}</span>
+            </div>
+            <div class="app-input-divider" aria-hidden="true"></div>
+            <input
+              type="tel"
+              inputmode="numeric"
+              autocomplete="tel-national"
+              formControlName="mobile"
+              placeholder="Enter your mobile number"
+              (input)="onMobileInput($event)"
+              (keyup.enter)="onGetOtp()"
+              maxlength="10"
+              class="mobile-number-input"
+              aria-label="Mobile Number"
+            />
+          </div>
+
+          <!-- Inline Error Feedback -->
+          @if (errorMessage()) {
+            <div class="app-alert-banner error" role="alert">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+              </svg>
+              <span>{{ errorMessage() }}</span>
+            </div>
+          }
+
+          @if (mobileForm.controls.mobile.invalid && mobileForm.controls.mobile.touched && !errorMessage()) {
+            <p class="field-error-msg">Please enter a valid 10-digit mobile number.</p>
+          }
+
+          <!-- Primary CTA Button: Get OTP -->
+          <div class="action-buttons-group">
+            <button
+              type="button"
+              class="app-btn-primary"
+              (click)="onGetOtp()"
+              [disabled]="isLoading() || mobileForm.invalid"
+            >
+              @if (isLoading()) {
+                <ion-spinner name="crescent" color="light"></ion-spinner>
+                <span>Sending OTP...</span>
+              } @else {
+                <span>Get OTP</span>
+              }
+            </button>
+
+            <!-- Secondary Option: Skip for Now -->
+            <button
+              type="button"
+              class="app-btn-secondary"
+              (click)="onSkip()"
+              [disabled]="isLoading()"
+            >
+              Skip for Now
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- STEP 2: OTP Verification Flow -->
+      @if (step() === 'otp') {
+        <div class="step-container" [formGroup]="otpForm">
+          
+          <div class="otp-meta-info">
+            <p class="otp-prompt">Enter verification code sent to</p>
+            <div class="otp-phone-row">
+              <span class="phone-number">{{ countryCode }} {{ mobileForm.controls.mobile.value }}</span>
+              <button type="button" class="edit-phone-btn" (click)="onEditMobile()" [disabled]="isLoading()">
+                Edit
+              </button>
+            </div>
+          </div>
+
+          <!-- OTP Input Field -->
+          <div class="app-input-pill otp-pill-centered" [class.has-error]="otpForm.controls.otp.invalid && otpForm.controls.otp.touched">
+            <input
+              type="tel"
+              inputmode="numeric"
+              autocomplete="one-time-code"
+              formControlName="otp"
+              placeholder="••••••"
+              (input)="onOtpInput($event)"
+              (keyup.enter)="onVerifyOtp()"
+              maxlength="6"
+              class="otp-digit-input"
+              aria-label="6-digit OTP code"
+            />
+          </div>
+
+          <!-- Alert feedback -->
+          @if (errorMessage()) {
+            <div class="app-alert-banner error" role="alert">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+              </svg>
+              <span>{{ errorMessage() }}</span>
+            </div>
+          }
+
+          @if (successMessage()) {
+            <div class="app-alert-banner success" role="status">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>{{ successMessage() }}</span>
+            </div>
+          }
+
+          <!-- Primary CTA Button: Verify & Login -->
+          <div class="action-buttons-group">
+            <button
+              type="button"
+              class="app-btn-primary"
+              (click)="onVerifyOtp()"
+              [disabled]="isLoading() || otpForm.invalid"
+            >
+              @if (isLoading()) {
+                <ion-spinner name="crescent" color="light"></ion-spinner>
+                <span>Verifying...</span>
+              } @else {
+                <span>Verify & Login</span>
+              }
+            </button>
+
+            <!-- Resend Handling -->
+            <div class="resend-row">
+              @if (resendCountdown() > 0) {
+                <span>
+                  Resend code in <strong>0:{{ resendCountdown() < 10 ? '0' + resendCountdown() : resendCountdown() }}</strong>
+                </span>
+              } @else {
+                <span>Didn't receive code?</span>
+                <button
+                  type="button"
+                  class="resend-btn"
+                  (click)="onResendOtp()"
+                  [disabled]="isLoading()"
+                >
+                  Resend OTP
+                </button>
+              }
+            </div>
+
+            <!-- Secondary Option: Skip for Now -->
+            <button
+              type="button"
+              class="app-btn-secondary"
+              (click)="onSkip()"
+              [disabled]="isLoading()"
+            >
+              Skip for Now
+            </button>
+          </div>
+
+        </div>
+      }
+
+      <!-- Footer: Terms & Privacy Policy (Exact match to Reference Image 1) -->
+      <footer class="login-footer">
+        <p class="terms-text">
+          By continuing, you agree to our
+          <a href="javascript:void(0)" class="terms-link">Terms & Privacy Policy.</a>
+        </p>
+        <div class="footer-dot" aria-hidden="true"></div>
+      </footer>
+
+    </div>
+  </div>
+</ion-content>

@@ -1,20 +1,53 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title class="app-toolbar-title">Tailor App</ion-title>
+    @if (currentUser()) {
+      <ion-button slot="end" fill="clear" color="primary" (click)="onSignOut()" class="signout-header-btn">
+        Sign Out
+      </ion-button>
+    } @else {
+      <ion-button slot="end" fill="clear" color="primary" (click)="onGoToLogin()" class="login-header-btn">
+        Login
+      </ion-button>
+    }
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="home-content">
+  <div class="home-container">
+    <div class="welcome-card">
+      <div class="status-chip" [class.guest]="!currentUser()">
+        <span class="status-indicator"></span>
+        <span>{{ currentUser() ? 'Authenticated Session' : 'Guest Mode (Skipped Login)' }}</span>
+      </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      <h1 class="welcome-title">
+        @if (currentUser()) {
+          Welcome back, {{ currentUser()?.name }}!
+        } @else {
+          Welcome to Tailor App
+        }
+      </h1>
+
+      <p class="welcome-desc">
+        @if (currentUser()) {
+          You are logged in with verified mobile <strong>{{ currentUser()?.countryCode }} {{ currentUser()?.mobileNumber }}</strong>.
+        } @else {
+          You skipped the login screen. You can browse tailor catalogs, fabrics, and services as a guest.
+        }
+      </p>
+
+      <div class="action-card">
+        @if (currentUser()) {
+          <button type="button" class="app-btn-primary" (click)="onSignOut()">
+            Sign Out
+          </button>
+        } @else {
+          <button type="button" class="app-btn-primary" (click)="onGoToLogin()">
+            Login with Mobile Number
+          </button>
+        }
+      </div>
+    </div>
   </div>
 </ion-content>

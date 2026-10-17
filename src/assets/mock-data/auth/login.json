@@ -1,0 +1,17 @@
+{
+  "testMobileNumber": "9999999999",
+  "countryCode": "+91",
+  "testOtp": "123456",
+  "otpResendCooldownSeconds": 30,
+  "mockSessionDurationSeconds": 86400,
+  "mockUser": {
+    "id": "usr_tailor_99999",
+    "mobileNumber": "9999999999",
+    "countryCode": "+91",
+    "name": "Test Customer",
+    "email": "customer.test@tailorapp.local",
+    "isProfileComplete": false,
+    "createdAt": "2026-10-17T08:00:00Z"
+  },
+  "mockAuthToken": "mock-dev-session-token-9999999999"
+}
