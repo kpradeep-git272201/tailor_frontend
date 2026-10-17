@@ -4,41 +4,315 @@
     "name": "Shirt",
     "imageUrl": "assets/images/articles/shirt.jpg",
     "category": "shirts",
-    "startingPrice": 399
+    "startingPrice": 399,
+    "materials": [
+      {
+        "id": "cotton",
+        "name": "Cotton",
+        "imageUrl": "assets/images/articles/material_cotton.png"
+      },
+      {
+        "id": "linen",
+        "name": "Linen",
+        "imageUrl": "assets/images/articles/material_linen.png"
+      },
+      {
+        "id": "silk",
+        "name": "Silk",
+        "imageUrl": "assets/images/articles/material_silk.png"
+      },
+      {
+        "id": "denim",
+        "name": "Denim",
+        "imageUrl": "assets/images/articles/material_denim.png"
+      },
+      {
+        "id": "polycotton",
+        "name": "Poly Cotton",
+        "imageUrl": "assets/images/articles/material_polycotton.png"
+      }
+    ],
+    "banner": {
+      "id": "promo_shirt_summer_winter",
+      "title": "Summer vs Winter on Tailoring Services",
+      "subtext": "Tailored perfection in 48 hours",
+      "imageUrl": "assets/images/articles/summer_winter_banner_ref.png"
+    },
+    "fabrics": [
+      {
+        "id": "fab_shirt_mint_back",
+        "name": "Mint Mandarin Shirt - Back",
+        "material": "cotton",
+        "imageUrl": "assets/images/articles/shirt_back.png",
+        "price": 499,
+        "rating": 4.9,
+        "tag": "Trending"
+      },
+      {
+        "id": "fab_shirt_mint_front",
+        "name": "Mint Mandarin Shirt - Front",
+        "material": "cotton",
+        "imageUrl": "assets/images/articles/shirt_front.png",
+        "price": 499,
+        "rating": 4.8,
+        "tag": "Popular"
+      },
+      {
+        "id": "fab_shirt_linen",
+        "name": "Bespoke Linen Weave",
+        "material": "linen",
+        "imageUrl": "assets/images/home/hero_banner_linen.jpg",
+        "price": 649,
+        "rating": 4.8,
+        "tag": "Premium"
+      },
+      {
+        "id": "fab_shirt_silk",
+        "name": "Emerald Royal Silk Shirt",
+        "material": "silk",
+        "imageUrl": "assets/images/home/fabric_silk_green.jpg",
+        "price": 899,
+        "rating": 4.9,
+        "tag": "Luxury"
+      },
+      {
+        "id": "fab_shirt_cotton_blue",
+        "name": "Oxford Indigo Blue Cotton",
+        "material": "cotton",
+        "imageUrl": "assets/images/home/fabric_cotton_blue.jpg",
+        "price": 549,
+        "rating": 4.7
+      }
+    ]
   },
   {
     "id": "art_pant",
     "name": "Pant",
     "imageUrl": "assets/images/articles/pant.jpg",
     "category": "pants",
-    "startingPrice": 499
+    "startingPrice": 499,
+    "materials": [
+      {
+        "id": "cotton",
+        "name": "Cotton",
+        "imageUrl": "assets/images/articles/material_cotton.png"
+      },
+      {
+        "id": "linen",
+        "name": "Linen",
+        "imageUrl": "assets/images/articles/material_linen.png"
+      },
+      {
+        "id": "denim",
+        "name": "Denim",
+        "imageUrl": "assets/images/articles/material_denim.png"
+      },
+      {
+        "id": "polycotton",
+        "name": "Poly Cotton",
+        "imageUrl": "assets/images/articles/material_polycotton.png"
+      }
+    ],
+    "banner": {
+      "id": "promo_pant_summer_winter",
+      "title": "Summer vs Winter on Tailoring Services",
+      "subtext": "Custom fit trousers & chinos",
+      "imageUrl": "assets/images/articles/summer_winter_banner_ref.png"
+    },
+    "fabrics": [
+      {
+        "id": "fab_pant_chinos",
+        "name": "Custom Tailored Slim Chino",
+        "material": "cotton",
+        "imageUrl": "assets/images/articles/pant.jpg",
+        "price": 599,
+        "rating": 4.9,
+        "tag": "Best Fit"
+      },
+      {
+        "id": "fab_pant_denim",
+        "name": "Raw Indigo Denim Trousers",
+        "material": "denim",
+        "imageUrl": "assets/images/home/fabric_cotton_blue.jpg",
+        "price": 699,
+        "rating": 4.8
+      }
+    ]
   },
   {
     "id": "art_kurta",
     "name": "Kurta",
     "imageUrl": "assets/images/articles/kurta.jpg",
     "category": "kurta",
-    "startingPrice": 599
+    "startingPrice": 599,
+    "materials": [
+      {
+        "id": "cotton",
+        "name": "Cotton",
+        "imageUrl": "assets/images/articles/material_cotton.png"
+      },
+      {
+        "id": "silk",
+        "name": "Silk",
+        "imageUrl": "assets/images/articles/material_silk.png"
+      },
+      {
+        "id": "linen",
+        "name": "Linen",
+        "imageUrl": "assets/images/articles/material_linen.png"
+      }
+    ],
+    "banner": {
+      "id": "promo_kurta_summer_winter",
+      "title": "Summer vs Winter on Tailoring Services",
+      "subtext": "Traditional festive & casual cuts",
+      "imageUrl": "assets/images/articles/summer_winter_banner_ref.png"
+    },
+    "fabrics": [
+      {
+        "id": "fab_kurta_festive",
+        "name": "Crimson Festive Pathani Kurta",
+        "material": "cotton",
+        "imageUrl": "assets/images/articles/kurta.jpg",
+        "price": 699,
+        "rating": 4.9,
+        "tag": "Festival"
+      },
+      {
+        "id": "fab_kurta_silk",
+        "name": "Banarasi Emerald Silk Kurta",
+        "material": "silk",
+        "imageUrl": "assets/images/home/fabric_silk_green.jpg",
+        "price": 1099,
+        "rating": 4.9,
+        "tag": "Royal"
+      }
+    ]
   },
   {
     "id": "art_blouse",
     "name": "Blouse",
     "imageUrl": "assets/images/articles/blouse.jpg",
     "category": "blouse",
-    "startingPrice": 699
+    "startingPrice": 699,
+    "materials": [
+      {
+        "id": "silk",
+        "name": "Silk",
+        "imageUrl": "assets/images/articles/material_silk.png"
+      },
+      {
+        "id": "cotton",
+        "name": "Cotton",
+        "imageUrl": "assets/images/articles/material_cotton.png"
+      },
+      {
+        "id": "polycotton",
+        "name": "Poly Cotton",
+        "imageUrl": "assets/images/articles/material_polycotton.png"
+      }
+    ],
+    "banner": {
+      "id": "promo_blouse_summer_winter",
+      "title": "Summer vs Winter on Tailoring Services",
+      "subtext": "Designer blouse cutting & latkans",
+      "imageUrl": "assets/images/articles/summer_winter_banner_ref.png"
+    },
+    "fabrics": [
+      {
+        "id": "fab_blouse_royal",
+        "name": "Royal Blue Deep Back Blouse",
+        "material": "silk",
+        "imageUrl": "assets/images/articles/blouse.jpg",
+        "price": 799,
+        "rating": 4.9,
+        "tag": "Designer"
+      },
+      {
+        "id": "fab_blouse_brocade",
+        "name": "Golden Brocade Silk Weave",
+        "material": "silk",
+        "imageUrl": "assets/images/home/fabric_silk_green.jpg",
+        "price": 999,
+        "rating": 4.8
+      }
+    ]
   },
   {
     "id": "art_suit",
     "name": "Suit",
     "imageUrl": "assets/images/articles/suit.jpg",
     "category": "suit",
-    "startingPrice": 2499
+    "startingPrice": 2499,
+    "materials": [
+      {
+        "id": "wool",
+        "name": "Wool",
+        "imageUrl": "assets/images/articles/material_polycotton.png"
+      },
+      {
+        "id": "linen",
+        "name": "Linen",
+        "imageUrl": "assets/images/articles/material_linen.png"
+      },
+      {
+        "id": "silk",
+        "name": "Silk",
+        "imageUrl": "assets/images/articles/material_silk.png"
+      }
+    ],
+    "banner": {
+      "id": "promo_suit_summer_winter",
+      "title": "Summer vs Winter on Tailoring Services",
+      "subtext": "2-piece & 3-piece bespoke tailoring",
+      "imageUrl": "assets/images/articles/summer_winter_banner_ref.png"
+    },
+    "fabrics": [
+      {
+        "id": "fab_suit_navy",
+        "name": "Midnight Navy Italian Cut 2-Piece",
+        "material": "wool",
+        "imageUrl": "assets/images/articles/suit.jpg",
+        "price": 2799,
+        "rating": 5.0,
+        "tag": "Bespoke"
+      }
+    ]
   },
   {
     "id": "art_sherwani",
     "name": "Sherwani",
     "imageUrl": "assets/images/articles/sherwani.jpg",
     "category": "sherwani",
-    "startingPrice": 3499
+    "startingPrice": 3499,
+    "materials": [
+      {
+        "id": "silk",
+        "name": "Silk",
+        "imageUrl": "assets/images/articles/material_silk.png"
+      },
+      {
+        "id": "velvet",
+        "name": "Velvet",
+        "imageUrl": "assets/images/articles/material_polycotton.png"
+      }
+    ],
+    "banner": {
+      "id": "promo_sherwani_summer_winter",
+      "title": "Summer vs Winter on Tailoring Services",
+      "subtext": "Royal Groom Wedding Couture",
+      "imageUrl": "assets/images/articles/summer_winter_banner_ref.png"
+    },
+    "fabrics": [
+      {
+        "id": "fab_sherwani_zari",
+        "name": "Zardozi Embroidered Royal Sherwani",
+        "material": "silk",
+        "imageUrl": "assets/images/articles/sherwani.jpg",
+        "price": 3899,
+        "rating": 4.9,
+        "tag": "Wedding"
+      }
+    ]
   }
 ]

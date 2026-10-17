@@ -94,13 +94,8 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   public onSelectArticle(article: ArticleItem): void {
-    if (this.selectedArticle() === article.id) {
-      this.selectedArticle.set(null);
-      this.searchQuery.set('');
-    } else {
-      this.selectedArticle.set(article.id);
-      this.searchQuery.set(article.name);
-    }
+    this.selectedArticle.set(article.id);
+    this.router.navigate(['/articles', article.id]);
   }
 
   // Banner slider & swipe handlers

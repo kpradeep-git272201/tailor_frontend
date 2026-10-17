@@ -36,6 +36,20 @@ export const routes: Routes = [
       import('./features/auth/pages/otp/otp.page').then((m) => m.OtpPage),
   },
   {
+    path: 'articles/:id',
+    loadComponent: () =>
+      import('./features/article/pages/articles/articles.page').then(
+        (m) => m.ArticlesPage
+      ),
+  },
+  {
+    path: 'articles',
+    loadComponent: () =>
+      import('./features/article/pages/articles/articles.page').then(
+        (m) => m.ArticlesPage
+      ),
+  },
+  {
     path: '**',
     redirectTo: 'login',
   },

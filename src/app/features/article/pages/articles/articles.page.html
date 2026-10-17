@@ -1,0 +1,173 @@
+<ion-content [fullscreen]="true" class="articles-ion-content">
+  <div class="articles-viewport">
+
+    <!-- Top Navigation Header -->
+    <header class="articles-topbar">
+      <button type="button" class="back-btn" (click)="onGoBack()" aria-label="Go back to Home">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <h1 class="topbar-title">{{ article()?.name || 'Shirt' }}</h1>
+      <div class="topbar-spacer"></div>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-section">
+      <div class="search-input-pill">
+        <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input
+          type="search"
+          class="search-field"
+          placeholder="Search for..."
+          [value]="searchQuery()"
+          (input)="onSearchInput($event)"
+          aria-label="Search fabrics and styles"
+        />
+        @if (searchQuery()) {
+          <button type="button" class="clear-search-btn" (click)="onClearSearch()" aria-label="Clear Search">
+            ✕
+          </button>
+        }
+      </div>
+    </section>
+
+    <!-- Materials / Fabric Types Horizontal Carousel -->
+    @if (article()?.materials && (article()?.materials)!.length > 0) {
+      <section class="materials-section" aria-label="Fabric Types">
+        <div class="materials-scroll-track">
+          @for (material of article()?.materials; track material.id) {
+            <button
+              type="button"
+              class="material-item-btn"
+              [class.active]="selectedMaterial() === material.id"
+              (click)="onSelectMaterial(material)"
+              [attr.aria-label]="'Filter by ' + material.name"
+            >
+              <div class="material-circle">
+                <img
+                  [src]="material.imageUrl"
+                  [alt]="material.name"
+                  class="material-img"
+                  loading="lazy"
+                />
+              </div>
+              <span class="material-name">{{ material.name }}</span>
+            </button>
+          }
+        </div>
+      </section>
+    }
+
+    <!-- Promotional Banner (Summer vs Winter on Tailoring Services) -->
+    <section class="promo-banner-section">
+      <div class="promo-banner-card" (click)="onSelectTab('fabric')">
+        <img
+          [src]="article()?.banner?.imageUrl || 'assets/images/articles/summer_winter_banner_ref.png'"
+          [alt]="article()?.banner?.title || 'Summer vs Winter on Tailoring Services'"
+          class="promo-banner-img"
+        />
+      </div>
+    </section>
+
+    <!-- Section Heading: Fabric By Article -->
+    <section class="fabric-by-article-section">
+      <h2 class="section-heading">Fabric By Article</h2>
+
+      <!-- 2-Column Fabric / Showcase Cards Grid -->
+      <div class="fabrics-grid">
+        @for (fabric of filteredFabrics(); track fabric.id) {
+          <article class="fabric-card" (click)="onSelectFabric(fabric)">
+            <div class="fabric-media">
+              <img
+                [src]="fabric.imageUrl"
+                [alt]="fabric.name"
+                class="fabric-img"
+                loading="lazy"
+              />
+              @if (fabric.tag) {
+                <span class="fabric-tag-badge">{{ fabric.tag }}</span>
+              }
+            </div>
+            <div class="fabric-meta">
+              <h3 class="fabric-name">{{ fabric.name }}</h3>
+              @if (fabric.price) {
+                <span class="fabric-price">₹{{ fabric.price }}</span>
+              }
+            </div>
+          </article>
+        } @empty {
+          <div class="empty-state">
+            <p>No fabrics match your search.</p>
+            <button type="button" class="reset-filter-btn" (click)="onClearSearch()">Show All</button>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- Bottom Spacer so content clears the fixed bottom bar -->
+    <div class="bottom-tabbar-spacer"></div>
+
+  </div>
+</ion-content>
+
+<!-- Bottom Navigation Tab Bar (Reference Image 2: 6 tabs) -->
+<nav class="home-bottom-navbar" aria-label="Bottom Navigation">
+  <div class="navbar-tabs-container">
+    @for (tab of tabs; track tab.id) {
+      <button
+        type="button"
+        class="nav-tab-btn"
+        [class.active]="activeTab() === tab.id"
+        (click)="onSelectTab(tab.id)"
+        [attr.aria-label]="tab.label"
+      >
+        @if (activeTab() === tab.id) {
+          <div class="tab-indicator"></div>
+        }
+        <!-- Tab SVGs matching Home and Reference Image 1 & 2 -->
+        @if (tab.id === 'home') {
+          <svg class="nav-tab-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+        } @else if (tab.id === 'tailors') {
+          <svg class="nav-tab-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="6" cy="6" r="3"></circle>
+            <circle cx="6" cy="18" r="3"></circle>
+            <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+            <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+            <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+          </svg>
+        } @else if (tab.id === 'fabric') {
+          <svg class="nav-tab-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/>
+          </svg>
+        } @else if (tab.id === 'order') {
+          <svg class="nav-tab-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="9" y1="6" x2="15" y2="6"></line>
+            <line x1="9" y1="10" x2="15" y2="10"></line>
+            <line x1="9" y1="14" x2="13" y2="14"></line>
+          </svg>
+        } @else if (tab.id === 'cart') {
+          <svg class="nav-tab-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"></path>
+          </svg>
+        } @else {
+          <svg class="nav-tab-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        }
+        <span class="nav-tab-label">{{ tab.label }}</span>
+      </button>
+    }
+  </div>
+</nav>

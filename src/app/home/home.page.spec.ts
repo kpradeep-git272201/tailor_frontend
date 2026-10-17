@@ -209,6 +209,19 @@ describe('HomePage', () => {
     expect(navigateSpy).toHaveBeenCalledWith(['/tailors']);
   });
 
+  it('should navigate to /articles/:id when onSelectArticle is called', () => {
+    const navigateSpy = vi.spyOn(router, 'navigate');
+    const article: ArticleItem = {
+      id: 'art_shirt',
+      name: 'Shirt',
+      imageUrl: 'assets/images/articles/shirt.jpg',
+      category: 'shirts',
+    };
+    component.onSelectArticle(article);
+    expect(component.selectedArticle()).toBe('art_shirt');
+    expect(navigateSpy).toHaveBeenCalledWith(['/articles', 'art_shirt']);
+  });
+
   it('should handle banner navigation and cyclic index calculation', () => {
     expect(component.activeBannerIndex()).toBe(0);
     component.nextBanner();
@@ -277,17 +290,5 @@ describe('HomePage', () => {
     expect(articleService.getArticles).toHaveBeenCalled();
     expect(component.articles().length).toBeGreaterThan(0);
     expect(component.articles()[0].name).toBe('Shirt');
-  });
-
-  it('should select and toggle article selection and update search query', () => {
-    const shirt = mockArticles[0];
-    component.onSelectArticle(shirt);
-    expect(component.selectedArticle()).toBe('art_shirt');
-    expect(component.searchQuery()).toBe('Shirt');
-
-    // Deselect
-    component.onSelectArticle(shirt);
-    expect(component.selectedArticle()).toBeNull();
-    expect(component.searchQuery()).toBe('');
   });
 });

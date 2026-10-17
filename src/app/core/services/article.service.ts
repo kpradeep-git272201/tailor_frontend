@@ -1,13 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, of, shareReplay } from 'rxjs';
+import { Observable, catchError, map, of, shareReplay } from 'rxjs';
 import { ArticleItem } from '../models/home.models';
+import { ArticleDetail } from '../models/article.models';
 
 /**
  * ArticleService
  * 
- * Fetches garment article categories (Shirt, Pant, Kurta, Blouse, Suit, Sherwani).
- * Ready for future Spring Boot REST API integration (e.g. GET /api/v1/articles).
+ * Fetches garment article categories and detailed article catalog data.
+ * Ready for future Spring Boot REST API integration (e.g. GET /api/v1/articles/:id).
  */
 @Injectable({
   providedIn: 'root',
@@ -16,11 +17,45 @@ export class ArticleService {
   private readonly http = inject(HttpClient);
   private readonly mockUrl = 'assets/mock-data/articles/articles.json';
 
-  private articles$?: Observable<ArticleItem[]>;
+  private articles$?: Observable<ArticleDetail[]>;
 
   public getArticles(): Observable<ArticleItem[]> {
+    return this.getAllArticleDetails().pipe(
+      map((details) =>
+        details.map((d) => ({
+          id: d.id,
+          name: d.name,
+          imageUrl: d.imageUrl,
+          category: d.category,
+          startingPrice: d.startingPrice,
+        }))
+      )
+    );
+  }
+
+  public getArticleById(id: string): Observable<ArticleDetail | undefined> {
+    if (!id || id.trim() === '') {
+      return this.getAllArticleDetails().pipe(map((list) => list[0]));
+    }
+
+    const cleanId = id.trim().toLowerCase();
+    return this.getAllArticleDetails().pipe(
+      map((list) => {
+        const found = list.find(
+          (a) =>
+            a.id.toLowerCase() === cleanId ||
+            a.category?.toLowerCase() === cleanId ||
+            a.name.toLowerCase() === cleanId
+        );
+        // Fallback to the first article if an unknown ID is provided
+        return found || list[0];
+      })
+    );
+  }
+
+  public getAllArticleDetails(): Observable<ArticleDetail[]> {
     if (!this.articles$) {
-      this.articles$ = this.http.get<ArticleItem[]>(this.mockUrl).pipe(
+      this.articles$ = this.http.get<ArticleDetail[]>(this.mockUrl).pipe(
         catchError((err) => {
           console.error('Failed to load articles from mock JSON:', err);
           return of(this.getFallbackArticles());
@@ -36,13 +71,103 @@ export class ArticleService {
     return this.getArticles();
   }
 
-  private getFallbackArticles(): ArticleItem[] {
+  private getFallbackArticles(): ArticleDetail[] {
     return [
-      { id: 'art_shirt', name: 'Shirt', imageUrl: 'assets/images/articles/shirt.jpg', category: 'shirts' },
-      { id: 'art_pant', name: 'Pant', imageUrl: 'assets/images/articles/pant.jpg', category: 'pants' },
-      { id: 'art_kurta', name: 'Kurta', imageUrl: 'assets/images/articles/kurta.jpg', category: 'kurta' },
-      { id: 'art_blouse', name: 'Blouse', imageUrl: 'assets/images/articles/blouse.jpg', category: 'blouse' },
-      { id: 'art_suit', name: 'Suit', imageUrl: 'assets/images/articles/suit.jpg', category: 'suit' },
+      {
+        id: 'art_shirt',
+        name: 'Shirt',
+        imageUrl: 'assets/images/articles/shirt.jpg',
+        category: 'shirts',
+        startingPrice: 399,
+        materials: [
+          { id: 'cotton', name: 'Cotton', imageUrl: 'assets/images/articles/material_cotton.png' },
+          { id: 'linen', name: 'Linen', imageUrl: 'assets/images/articles/material_linen.png' },
+          { id: 'silk', name: 'Silk', imageUrl: 'assets/images/articles/material_silk.png' },
+          { id: 'denim', name: 'Denim', imageUrl: 'assets/images/articles/material_denim.png' },
+          { id: 'polycotton', name: 'Poly Cotton', imageUrl: 'assets/images/articles/material_polycotton.png' },
+        ],
+        banner: {
+          id: 'promo_shirt_summer_winter',
+          title: 'Summer vs Winter on Tailoring Services',
+          subtext: 'Tailored perfection in 48 hours',
+          imageUrl: 'assets/images/articles/summer_winter_banner_ref.png',
+        },
+        fabrics: [
+          {
+            id: 'fab_shirt_mint_back',
+            name: 'Mint Mandarin Shirt - Back',
+            material: 'cotton',
+            imageUrl: 'assets/images/articles/shirt_back.png',
+            price: 499,
+            rating: 4.9,
+            tag: 'Trending',
+          },
+          {
+            id: 'fab_shirt_mint_front',
+            name: 'Mint Mandarin Shirt - Front',
+            material: 'cotton',
+            imageUrl: 'assets/images/articles/shirt_front.png',
+            price: 499,
+            rating: 4.8,
+            tag: 'Popular',
+          },
+        ],
+      },
+      {
+        id: 'art_pant',
+        name: 'Pant',
+        imageUrl: 'assets/images/articles/pant.jpg',
+        category: 'pants',
+        startingPrice: 499,
+        materials: [
+          { id: 'cotton', name: 'Cotton', imageUrl: 'assets/images/articles/material_cotton.png' },
+          { id: 'linen', name: 'Linen', imageUrl: 'assets/images/articles/material_linen.png' },
+        ],
+        fabrics: [
+          {
+            id: 'fab_pant_1',
+            name: 'Custom Tailored Slim Chino',
+            material: 'cotton',
+            imageUrl: 'assets/images/articles/pant.jpg',
+            price: 599,
+            rating: 4.9,
+          },
+        ],
+      },
+      {
+        id: 'art_kurta',
+        name: 'Kurta',
+        imageUrl: 'assets/images/articles/kurta.jpg',
+        category: 'kurta',
+        startingPrice: 599,
+        materials: [
+          { id: 'cotton', name: 'Cotton', imageUrl: 'assets/images/articles/material_cotton.png' },
+          { id: 'silk', name: 'Silk', imageUrl: 'assets/images/articles/material_silk.png' },
+        ],
+        fabrics: [],
+      },
+      {
+        id: 'art_blouse',
+        name: 'Blouse',
+        imageUrl: 'assets/images/articles/blouse.jpg',
+        category: 'blouse',
+        startingPrice: 699,
+        materials: [
+          { id: 'silk', name: 'Silk', imageUrl: 'assets/images/articles/material_silk.png' },
+        ],
+        fabrics: [],
+      },
+      {
+        id: 'art_suit',
+        name: 'Suit',
+        imageUrl: 'assets/images/articles/suit.jpg',
+        category: 'suit',
+        startingPrice: 2499,
+        materials: [
+          { id: 'linen', name: 'Linen', imageUrl: 'assets/images/articles/material_linen.png' },
+        ],
+        fabrics: [],
+      },
     ];
   }
 }
