@@ -147,7 +147,6 @@ export class ArticleService {
       { id: 'wool', fabricId: 'wool', name: 'Wool', fabricCategoryName: 'Wool', imagePath: 'assets/images/articles/wool-fabric.png', imageUrl: 'assets/images/articles/wool-fabric.png', pricePerMeter: 699, isFeatured: true, isDefault: false, isVisible: true },
       { id: 'polyester', fabricId: 'polyester', name: 'Polyester', fabricCategoryName: 'Polyester', imagePath: 'assets/images/articles/polyester-fabric.png', imageUrl: 'assets/images/articles/polyester-fabric.png', pricePerMeter: 299, isTrending: false, isDefault: false, isVisible: true },
       { id: 'denim', fabricId: 'denim', name: 'Denim', fabricCategoryName: 'Denim', imagePath: 'assets/images/articles/material_denim.png', imageUrl: 'assets/images/articles/material_denim.png', pricePerMeter: 449, isTrending: false, isDefault: false, isVisible: true },
-      { id: 'polycotton', fabricId: 'polycotton', name: 'Poly Cotton', fabricCategoryName: 'Poly Cotton', imagePath: 'assets/images/articles/material_polycotton.png', imageUrl: 'assets/images/articles/material_polycotton.png', pricePerMeter: 299, isTrending: false, isDefault: false, isVisible: true },
     ];
   }
 
@@ -161,7 +160,7 @@ export class ArticleService {
         imageUrl: 'assets/images/articles/shirt.jpg',
         category: 'shirts',
         startingPrice: 399,
-        fabricIds: ['cotton', 'linen', 'silk', 'wool', 'polyester'],
+        fabricIds: ['cotton', 'linen', 'silk', 'wool', 'polyester', 'denim'],
         materials: this.getFallbackMaterials(),
         banner: {
           id: 'promo_shirt_summer_winter',

@@ -1,7 +1,7 @@
 [
   {
     "articleId": "art_shirt",
-    "fabricIds": ["cotton", "linen", "silk", "wool", "polyester"]
+    "fabricIds": ["cotton", "linen", "silk", "wool", "polyester", "denim"]
   },
   {
     "articleId": "art_pant",

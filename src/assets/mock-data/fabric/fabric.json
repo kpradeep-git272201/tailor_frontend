@@ -70,17 +70,5 @@
     "isTrending": false,
     "isDefault": false,
     "isVisible": true
-  },
-  {
-    "id": "polycotton",
-    "fabricId": "polycotton",
-    "name": "Poly Cotton",
-    "imagePath": "assets/images/articles/material_polycotton.png",
-    "imageUrl": "assets/images/articles/material_polycotton.png",
-    "pricePerMeter": 299,
-    "description": "Easy-Care Wrinkle-Resistant Blend",
-    "isTrending": false,
-    "isDefault": false,
-    "isVisible": true
   }
 ]

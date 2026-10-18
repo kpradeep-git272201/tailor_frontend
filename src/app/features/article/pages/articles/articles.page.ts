@@ -91,7 +91,7 @@ export class ArticlesPage implements OnInit {
 
     let displayList: FabricCategoryItem[];
     if (hasVisibilityConfig) {
-      // Filter out non-visible fabrics (Linen, Silk, Denim, Poly-Cotton) loaded from mock JSON
+      // Filter out non-visible fabrics loaded from mock JSON
       displayList = list.filter((item) => item.isVisible === true);
     } else {
       displayList = list.filter((item) => item.isVisible !== false);

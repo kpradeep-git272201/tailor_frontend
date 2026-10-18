@@ -12,7 +12,8 @@
       "linen",
       "silk",
       "wool",
-      "polyester"
+      "polyester",
+      "denim"
     ],
     "materials": [
       {
@@ -94,20 +95,6 @@
         "imageUrl": "assets/images/articles/material_denim.png",
         "fabricCategoryImagePath": "assets/images/articles/material_denim.png",
         "pricePerMeter": 449,
-        "isTrending": false,
-        "isDefault": false,
-        "isVisible": true,
-        "selected": false
-      },
-      {
-        "id": "polycotton",
-        "fabricId": "polycotton",
-        "name": "Poly Cotton",
-        "fabricCategoryName": "Poly Cotton",
-        "imagePath": "assets/images/articles/material_polycotton.png",
-        "imageUrl": "assets/images/articles/material_polycotton.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_polycotton.png",
-        "pricePerMeter": 299,
         "isTrending": false,
         "isDefault": false,
         "isVisible": true,
