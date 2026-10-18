@@ -1,0 +1,22 @@
+[
+  {
+    "articleId": "art_shirt",
+    "fabricIds": ["cotton", "linen", "silk", "wool", "polyester"]
+  },
+  {
+    "articleId": "art_pant",
+    "fabricIds": ["cotton", "linen", "wool", "denim", "polyester"]
+  },
+  {
+    "articleId": "art_kurta",
+    "fabricIds": ["cotton", "silk", "linen"]
+  },
+  {
+    "articleId": "art_blouse",
+    "fabricIds": ["silk", "cotton", "polyester"]
+  },
+  {
+    "articleId": "art_suit",
+    "fabricIds": ["wool", "linen", "silk"]
+  }
+]

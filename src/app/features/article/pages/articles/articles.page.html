@@ -36,38 +36,50 @@
       </div>
     </section>
 
-    <!-- Fabric Categories Horizontal Row using ion-thumbnail (matches reference code) -->
+    <!-- Fabric Categories Horizontal Row using ion-thumbnail (matches reference design) -->
     @if (fabricCategory().length > 0) {
       <section class="materials-section" aria-label="Fabric Categories">
-        <div class="materials-scroll-track">
-          @for (fabCat of fabricCategory(); track fabCat.id) {
-            <div
-              class="category-item"
-              [class.selected]="fabCat.selected"
-              (click)="toggleSelection(fabCat)"
-              role="button"
-              tabindex="0"
-              [attr.aria-label]="'Filter by ' + fabCat.fabricCategoryName"
-            >
-              <ion-thumbnail class="articles checked">
-                <img
-                  [src]="fabCat.fabricCategoryImagePath || fabCat.imagePath"
-                  [alt]="fabCat.fabricCategoryName"
-                  class="material-img"
-                  loading="lazy"
-                  (error)="onImageError($event, 'assets/images/articles/material_cotton.png')"
-                />
-                @if (fabCat.selected) {
-                  <ion-icon
-                    name="checkmark-circle"
-                    class="check-icon"
-                    aria-hidden="true"
-                  ></ion-icon>
-                }
-              </ion-thumbnail>
-              <p class="thumbnail-text">{{ fabCat.fabricCategoryName }}</p>
-            </div>
-          }
+        <div class="materials-scroll-wrapper">
+          <div #materialsTrack class="materials-scroll-track">
+            @for (fabCat of fabricCategory(); track fabCat.id) {
+              <div
+                class="category-item"
+                [class.selected]="fabCat.selected"
+                (click)="toggleSelection(fabCat)"
+                role="button"
+                tabindex="0"
+                [attr.aria-label]="'Filter by ' + fabCat.fabricCategoryName"
+              >
+                <ion-thumbnail class="articles checked">
+                  <img
+                    [src]="fabCat.fabricCategoryImagePath || fabCat.imagePath || fabCat.imageUrl"
+                    [alt]="fabCat.fabricCategoryName"
+                    class="material-img"
+                    loading="lazy"
+                    (error)="onImageError($event, 'assets/images/articles/material_cotton.png')"
+                  />
+                  @if (fabCat.selected) {
+                    <ion-icon
+                      name="checkmark-circle"
+                      class="check-icon"
+                      aria-hidden="true"
+                    ></ion-icon>
+                  }
+                </ion-thumbnail>
+                <p class="thumbnail-text">{{ fabCat.fabricCategoryName }}</p>
+              </div>
+            }
+          </div>
+          <button
+            type="button"
+            class="materials-scroll-btn"
+            (click)="onScrollMaterialsRight(materialsTrack)"
+            aria-label="Scroll fabrics right"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
         </div>
       </section>
     }

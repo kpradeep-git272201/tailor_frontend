@@ -1,38 +1,46 @@
 [
   {
     "id": "art_shirt",
+    "articleId": "art_shirt",
     "name": "Shirt",
     "imagePath": "assets/images/articles/shirt.jpg",
     "imageUrl": "assets/images/articles/shirt.jpg",
     "category": "shirts",
     "startingPrice": 399,
+    "fabricIds": [
+      "cotton",
+      "linen",
+      "silk",
+      "wool",
+      "polyester"
+    ],
     "materials": [
       {
         "id": "cotton",
         "fabricId": "cotton",
         "name": "Cotton",
         "fabricCategoryName": "Cotton",
-        "imagePath": "assets/images/articles/material_cotton.png",
-        "imageUrl": "assets/images/articles/material_cotton.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_cotton.png",
+        "imagePath": "assets/images/articles/cotton-fabric.png",
+        "imageUrl": "assets/images/articles/cotton-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/cotton-fabric.png",
         "pricePerMeter": 349,
         "isTrending": true,
-        "isDefault": true,
+        "isDefault": false,
         "isVisible": true,
-        "selected": true
+        "selected": false
       },
       {
         "id": "linen",
         "fabricId": "linen",
         "name": "Linen",
         "fabricCategoryName": "Linen",
-        "imagePath": "assets/images/articles/material_linen.png",
-        "imageUrl": "assets/images/articles/material_linen.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_linen.png",
+        "imagePath": "assets/images/articles/linen-fabric.png",
+        "imageUrl": "assets/images/articles/linen-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/linen-fabric.png",
         "pricePerMeter": 499,
         "isFeatured": true,
         "isDefault": false,
-        "isVisible": false,
+        "isVisible": true,
         "selected": false
       },
       {
@@ -40,13 +48,41 @@
         "fabricId": "silk",
         "name": "Silk",
         "fabricCategoryName": "Silk",
-        "imagePath": "assets/images/articles/material_silk.png",
-        "imageUrl": "assets/images/articles/material_silk.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_silk.png",
+        "imagePath": "assets/images/articles/slik-fabric.png",
+        "imageUrl": "assets/images/articles/slik-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/slik-fabric.png",
         "pricePerMeter": 899,
         "isFeatured": true,
         "isDefault": false,
-        "isVisible": false,
+        "isVisible": true,
+        "selected": false
+      },
+      {
+        "id": "wool",
+        "fabricId": "wool",
+        "name": "Wool",
+        "fabricCategoryName": "Wool",
+        "imagePath": "assets/images/articles/wool-fabric.png",
+        "imageUrl": "assets/images/articles/wool-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/wool-fabric.png",
+        "pricePerMeter": 699,
+        "isFeatured": true,
+        "isDefault": false,
+        "isVisible": true,
+        "selected": false
+      },
+      {
+        "id": "polyester",
+        "fabricId": "polyester",
+        "name": "Polyester",
+        "fabricCategoryName": "Polyester",
+        "imagePath": "assets/images/articles/polyester-fabric.png",
+        "imageUrl": "assets/images/articles/polyester-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/polyester-fabric.png",
+        "pricePerMeter": 299,
+        "isTrending": false,
+        "isDefault": false,
+        "isVisible": true,
         "selected": false
       },
       {
@@ -60,7 +96,7 @@
         "pricePerMeter": 449,
         "isTrending": false,
         "isDefault": false,
-        "isVisible": false,
+        "isVisible": true,
         "selected": false
       },
       {
@@ -74,7 +110,7 @@
         "pricePerMeter": 299,
         "isTrending": false,
         "isDefault": false,
-        "isVisible": false,
+        "isVisible": true,
         "selected": false
       }
     ],
@@ -150,24 +186,80 @@
         "rating": 4.7,
         "isTrending": false,
         "isFeatured": false
+      },
+      {
+        "id": "fab_shirt_silk_ivory",
+        "fabricId": "silk",
+        "name": "Ivory Silk Shirt",
+        "fabricName": "Ivory Silk Shirt",
+        "categoryName": "Shirt",
+        "material": "silk",
+        "fabricCategory": "silk",
+        "imagePath": "assets/images/articles/slik-fabric.png",
+        "imageUrl": "assets/images/articles/slik-fabric.png",
+        "price": 899,
+        "pricePerMeter": 899,
+        "rating": 4.9,
+        "isTrending": true,
+        "isFeatured": false
+      },
+      {
+        "id": "fab_shirt_wool_grey",
+        "fabricId": "wool",
+        "name": "Heather Grey Wool Shirt",
+        "fabricName": "Heather Grey Wool Shirt",
+        "categoryName": "Shirt",
+        "material": "wool",
+        "fabricCategory": "wool",
+        "imagePath": "assets/images/articles/wool-fabric.png",
+        "imageUrl": "assets/images/articles/wool-fabric.png",
+        "price": 799,
+        "pricePerMeter": 799,
+        "rating": 4.8,
+        "isTrending": false,
+        "isFeatured": true
+      },
+      {
+        "id": "fab_shirt_polyester_blue",
+        "fabricId": "polyester",
+        "name": "Navy Performance Poly Shirt",
+        "fabricName": "Navy Performance Poly Shirt",
+        "categoryName": "Shirt",
+        "material": "polyester",
+        "fabricCategory": "polyester",
+        "imagePath": "assets/images/articles/polyester-fabric.png",
+        "imageUrl": "assets/images/articles/polyester-fabric.png",
+        "price": 599,
+        "pricePerMeter": 599,
+        "rating": 4.8,
+        "isTrending": false,
+        "isFeatured": false
       }
     ]
   },
   {
     "id": "art_pant",
+    "articleId": "art_pant",
     "name": "Pant",
     "imagePath": "assets/images/articles/pant.jpg",
     "imageUrl": "assets/images/articles/pant.jpg",
     "category": "pants",
     "startingPrice": 499,
+    "fabricIds": [
+      "cotton",
+      "linen",
+      "wool",
+      "denim",
+      "polyester"
+    ],
     "materials": [
       {
         "id": "cotton",
         "name": "Cotton",
         "fabricCategoryName": "Cotton",
-        "imagePath": "assets/images/articles/material_cotton.png",
-        "imageUrl": "assets/images/articles/material_cotton.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_cotton.png",
+        "imagePath": "assets/images/articles/cotton-fabric.png",
+        "imageUrl": "assets/images/articles/cotton-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/cotton-fabric.png",
         "pricePerMeter": 349,
         "isTrending": true,
         "selected": true
@@ -176,10 +268,20 @@
         "id": "linen",
         "name": "Linen",
         "fabricCategoryName": "Linen",
-        "imagePath": "assets/images/articles/material_linen.png",
-        "imageUrl": "assets/images/articles/material_linen.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_linen.png",
+        "imagePath": "assets/images/articles/linen-fabric.png",
+        "imageUrl": "assets/images/articles/linen-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/linen-fabric.png",
         "pricePerMeter": 499,
+        "selected": false
+      },
+      {
+        "id": "wool",
+        "name": "Wool",
+        "fabricCategoryName": "Wool",
+        "imagePath": "assets/images/articles/wool-fabric.png",
+        "imageUrl": "assets/images/articles/wool-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/wool-fabric.png",
+        "pricePerMeter": 699,
         "selected": false
       },
       {
@@ -193,12 +295,12 @@
         "selected": false
       },
       {
-        "id": "polycotton",
-        "name": "Poly Cotton",
-        "fabricCategoryName": "Poly Cotton",
-        "imagePath": "assets/images/articles/material_polycotton.png",
-        "imageUrl": "assets/images/articles/material_polycotton.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_polycotton.png",
+        "id": "polyester",
+        "name": "Polyester",
+        "fabricCategoryName": "Polyester",
+        "imagePath": "assets/images/articles/polyester-fabric.png",
+        "imageUrl": "assets/images/articles/polyester-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/polyester-fabric.png",
         "pricePerMeter": 299,
         "selected": false
       }
@@ -230,19 +332,25 @@
   },
   {
     "id": "art_kurta",
+    "articleId": "art_kurta",
     "name": "Kurta",
     "imagePath": "assets/images/articles/kurta.jpg",
     "imageUrl": "assets/images/articles/kurta.jpg",
     "category": "kurta",
     "startingPrice": 599,
+    "fabricIds": [
+      "cotton",
+      "silk",
+      "linen"
+    ],
     "materials": [
       {
         "id": "cotton",
         "name": "Cotton",
         "fabricCategoryName": "Cotton",
-        "imagePath": "assets/images/articles/material_cotton.png",
-        "imageUrl": "assets/images/articles/material_cotton.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_cotton.png",
+        "imagePath": "assets/images/articles/cotton-fabric.png",
+        "imageUrl": "assets/images/articles/cotton-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/cotton-fabric.png",
         "pricePerMeter": 349,
         "isTrending": true,
         "selected": true
@@ -251,9 +359,9 @@
         "id": "silk",
         "name": "Silk",
         "fabricCategoryName": "Silk",
-        "imagePath": "assets/images/articles/material_silk.png",
-        "imageUrl": "assets/images/articles/material_silk.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_silk.png",
+        "imagePath": "assets/images/articles/slik-fabric.png",
+        "imageUrl": "assets/images/articles/slik-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/slik-fabric.png",
         "pricePerMeter": 899,
         "selected": false
       },
@@ -261,9 +369,9 @@
         "id": "linen",
         "name": "Linen",
         "fabricCategoryName": "Linen",
-        "imagePath": "assets/images/articles/material_linen.png",
-        "imageUrl": "assets/images/articles/material_linen.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_linen.png",
+        "imagePath": "assets/images/articles/linen-fabric.png",
+        "imageUrl": "assets/images/articles/linen-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/linen-fabric.png",
         "pricePerMeter": 499,
         "selected": false
       }
@@ -295,19 +403,25 @@
   },
   {
     "id": "art_blouse",
+    "articleId": "art_blouse",
     "name": "Blouse",
     "imagePath": "assets/images/articles/blouse.jpg",
     "imageUrl": "assets/images/articles/blouse.jpg",
     "category": "blouse",
     "startingPrice": 699,
+    "fabricIds": [
+      "silk",
+      "cotton",
+      "polyester"
+    ],
     "materials": [
       {
         "id": "silk",
         "name": "Silk",
         "fabricCategoryName": "Silk",
-        "imagePath": "assets/images/articles/material_silk.png",
-        "imageUrl": "assets/images/articles/material_silk.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_silk.png",
+        "imagePath": "assets/images/articles/slik-fabric.png",
+        "imageUrl": "assets/images/articles/slik-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/slik-fabric.png",
         "pricePerMeter": 899,
         "selected": true
       },
@@ -315,11 +429,21 @@
         "id": "cotton",
         "name": "Cotton",
         "fabricCategoryName": "Cotton",
-        "imagePath": "assets/images/articles/material_cotton.png",
-        "imageUrl": "assets/images/articles/material_cotton.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_cotton.png",
+        "imagePath": "assets/images/articles/cotton-fabric.png",
+        "imageUrl": "assets/images/articles/cotton-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/cotton-fabric.png",
         "pricePerMeter": 349,
         "isTrending": true,
+        "selected": false
+      },
+      {
+        "id": "polyester",
+        "name": "Polyester",
+        "fabricCategoryName": "Polyester",
+        "imagePath": "assets/images/articles/polyester-fabric.png",
+        "imageUrl": "assets/images/articles/polyester-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/polyester-fabric.png",
+        "pricePerMeter": 299,
         "selected": false
       }
     ],
@@ -350,29 +474,45 @@
   },
   {
     "id": "art_suit",
+    "articleId": "art_suit",
     "name": "Suit",
     "imagePath": "assets/images/articles/suit.jpg",
     "imageUrl": "assets/images/articles/suit.jpg",
     "category": "suit",
     "startingPrice": 2499,
+    "fabricIds": [
+      "wool",
+      "linen",
+      "silk"
+    ],
     "materials": [
+      {
+        "id": "wool",
+        "name": "Wool",
+        "fabricCategoryName": "Wool",
+        "imagePath": "assets/images/articles/wool-fabric.png",
+        "imageUrl": "assets/images/articles/wool-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/wool-fabric.png",
+        "pricePerMeter": 699,
+        "selected": true
+      },
       {
         "id": "linen",
         "name": "Linen",
         "fabricCategoryName": "Linen",
-        "imagePath": "assets/images/articles/material_linen.png",
-        "imageUrl": "assets/images/articles/material_linen.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_linen.png",
+        "imagePath": "assets/images/articles/linen-fabric.png",
+        "imageUrl": "assets/images/articles/linen-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/linen-fabric.png",
         "pricePerMeter": 499,
-        "selected": true
+        "selected": false
       },
       {
         "id": "silk",
         "name": "Silk",
         "fabricCategoryName": "Silk",
-        "imagePath": "assets/images/articles/material_silk.png",
-        "imageUrl": "assets/images/articles/material_silk.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_silk.png",
+        "imagePath": "assets/images/articles/slik-fabric.png",
+        "imageUrl": "assets/images/articles/slik-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/slik-fabric.png",
         "pricePerMeter": 899,
         "selected": false
       }
@@ -404,21 +544,47 @@
   },
   {
     "id": "art_sherwani",
+    "articleId": "art_sherwani",
     "name": "Sherwani",
     "imagePath": "assets/images/articles/sherwani.jpg",
     "imageUrl": "assets/images/articles/sherwani.jpg",
     "category": "sherwani",
     "startingPrice": 3499,
+    "fabricIds": [
+      "silk",
+      "wool",
+      "cotton"
+    ],
     "materials": [
       {
         "id": "silk",
         "name": "Silk",
         "fabricCategoryName": "Silk",
-        "imagePath": "assets/images/articles/material_silk.png",
-        "imageUrl": "assets/images/articles/material_silk.png",
-        "fabricCategoryImagePath": "assets/images/articles/material_silk.png",
+        "imagePath": "assets/images/articles/slik-fabric.png",
+        "imageUrl": "assets/images/articles/slik-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/slik-fabric.png",
         "pricePerMeter": 899,
         "selected": true
+      },
+      {
+        "id": "wool",
+        "name": "Wool",
+        "fabricCategoryName": "Wool",
+        "imagePath": "assets/images/articles/wool-fabric.png",
+        "imageUrl": "assets/images/articles/wool-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/wool-fabric.png",
+        "pricePerMeter": 699,
+        "selected": false
+      },
+      {
+        "id": "cotton",
+        "name": "Cotton",
+        "fabricCategoryName": "Cotton",
+        "imagePath": "assets/images/articles/cotton-fabric.png",
+        "imageUrl": "assets/images/articles/cotton-fabric.png",
+        "fabricCategoryImagePath": "assets/images/articles/cotton-fabric.png",
+        "pricePerMeter": 349,
+        "selected": false
       }
     ],
     "banner": {

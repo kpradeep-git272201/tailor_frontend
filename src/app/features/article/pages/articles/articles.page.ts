@@ -53,6 +53,7 @@ export class ArticlesPage implements OnInit {
   private readonly articleService = inject(ArticleService);
 
   public readonly article = signal<ArticleDetail | null>(null);
+  public readonly articleFabrics = signal<FabricCategoryItem[]>([]);
   public readonly selectedMaterial = signal<string | null>(null);
   public readonly searchQuery = signal<string>('');
   public readonly isLoading = signal<boolean>(true);
@@ -72,11 +73,17 @@ export class ArticlesPage implements OnInit {
   }
 
   // Fabric categories list conforming to the user's reference code
-  // Dynamically loaded from mock JSON with isVisible / isDefault configuration
+  // Dynamically loaded from mock JSON with isVisible configuration
   public readonly fabricCategory = computed<FabricCategoryItem[]>(() => {
     const art = this.article();
-    if (!art) return [];
-    const list = art.fabricCategory || art.materials || [];
+    const serviceFabrics = this.articleFabrics();
+    const list =
+      (art?.fabricCategory && art.fabricCategory.length > 0)
+        ? art.fabricCategory
+        : (art?.materials && art.materials.length > 0)
+        ? art.materials
+        : serviceFabrics;
+    if (!art && serviceFabrics.length === 0) return [];
     const activeId = this.selectedMaterial();
 
     // Check if mock data defines visibility flags
@@ -85,18 +92,24 @@ export class ArticlesPage implements OnInit {
     let displayList: FabricCategoryItem[];
     if (hasVisibilityConfig) {
       // Filter out non-visible fabrics (Linen, Silk, Denim, Poly-Cotton) loaded from mock JSON
-      displayList = list.filter(
-        (item) => item.isVisible === true || (item.isVisible === undefined && item.isDefault === true)
-      );
+      displayList = list.filter((item) => item.isVisible === true);
     } else {
       displayList = list.filter((item) => item.isVisible !== false);
     }
 
-    return displayList.map((item) => {
+    // Prevent duplicate rendering: deduplicate by fabricId / id / name
+    const seen = new Set<string>();
+    const uniqueList = displayList.filter((item) => {
+      const key = (item.fabricId || item.id || item.name).toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+
+    return uniqueList.map((item) => {
       const itemId = (item.fabricId || item.id).toLowerCase();
-      const isSelected = activeId
-        ? itemId === activeId.toLowerCase()
-        : !!item.isDefault;
+      // No default selection on load: only selected if actively clicked/chosen
+      const isSelected = activeId ? itemId === activeId.toLowerCase() : false;
       return {
         ...item,
         fabricCategoryName: item.fabricCategoryName || item.name,
@@ -115,6 +128,7 @@ export class ArticlesPage implements OnInit {
     let list = art.fabrics;
     const materialId = this.selectedMaterial();
 
+    // Apply fabric filter ONLY when a fabric thumbnail is actively selected
     if (materialId) {
       const cleanMaterial = materialId.trim().toLowerCase();
       // Filter categories using relationship: fabricId, fabricCategory, or material
@@ -155,7 +169,7 @@ export class ArticlesPage implements OnInit {
       this.loadArticle('art_shirt');
     }
 
-    // Listen for route query parameter to sync fabric selection
+    // Listen for route query parameter to sync fabric selection if explicitly passed in URL
     if (this.route?.queryParamMap) {
       this.route.queryParamMap.subscribe((queryParams) => {
         const fabricParam = queryParams.get('fabric');
@@ -172,14 +186,6 @@ export class ArticlesPage implements OnInit {
       next: (data) => {
         if (data) {
           this.article.set(data);
-          // If no fabric queryParam was set, default to the default/visible fabric from mock JSON
-          if (!this.selectedMaterial()) {
-            const list = data.fabricCategory || data.materials || [];
-            const defaultFab = list.find((m) => m.isDefault);
-            if (defaultFab) {
-              this.selectedMaterial.set((defaultFab.fabricId || defaultFab.id).toLowerCase());
-            }
-          }
         }
         this.isLoading.set(false);
       },
@@ -187,6 +193,17 @@ export class ArticlesPage implements OnInit {
         this.isLoading.set(false);
       },
     });
+
+    if (this.articleService && typeof this.articleService.getFabricsByArticleId === 'function') {
+      this.articleService.getFabricsByArticleId(id).subscribe({
+        next: (fabrics) => {
+          this.articleFabrics.set(fabrics || []);
+        },
+        error: () => {
+          this.articleFabrics.set([]);
+        },
+      });
+    }
   }
 
   public onGoBack(): void {
@@ -196,19 +213,29 @@ export class ArticlesPage implements OnInit {
   public toggleSelection(fabCat: FabricCategoryItem): void {
     const targetId = (fabCat.fabricId || fabCat.id).toLowerCase();
     const current = this.selectedMaterial();
+
+    // Toggle: clicking Cotton selects it; clicking again deselects it and restores unfiltered content
     const newSelection = current && current.toLowerCase() === targetId ? null : targetId;
     this.selectedMaterial.set(newSelection);
 
     // Pass selected fabric ID via route query parameter
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: newSelection ? { fabric: newSelection } : { fabric: null },
-      queryParamsHandling: 'merge',
-    });
+    if (this.router && this.route) {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: newSelection ? { fabric: newSelection } : { fabric: null },
+        queryParamsHandling: 'merge',
+      });
+    }
   }
 
   public onSelectMaterial(material: FabricCategoryItem): void {
     this.toggleSelection(material);
+  }
+
+  public onScrollMaterialsRight(trackEl: HTMLElement): void {
+    if (trackEl && typeof trackEl.scrollBy === 'function') {
+      trackEl.scrollBy({ left: 160, behavior: 'smooth' });
+    }
   }
 
   public selectedFabric(fabric: ArticleFabricItem): void {

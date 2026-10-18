@@ -101,6 +101,7 @@ describe('ArticlesPage', () => {
           provide: ArticleService,
           useValue: {
             getArticleById: vi.fn().mockReturnValue(of(mockArticleDetail)),
+            getFabricsByArticleId: vi.fn().mockReturnValue(of(mockArticleDetail.materials)),
           },
         },
       ],
@@ -263,5 +264,53 @@ describe('ArticlesPage', () => {
   it('should handle missing IDs and empty results gracefully', () => {
     component.selectedMaterial.set('non_existent_fabric');
     expect(component.filteredFabrics().length).toBe(0);
+  });
+
+  it('should have no fabric selected by default and display unfiltered fabrics on load', () => {
+    expect(component.selectedMaterial()).toBeNull();
+    expect(component.fabricCategory().every((c) => !c.selected)).toBe(true);
+    expect(component.filteredFabrics().length).toBe(3);
+  });
+
+  it('should filter categories on Cotton click and restore unfiltered content on deselect', () => {
+    const cottonCategory = mockArticleDetail.materials[0];
+
+    // Click Cotton -> selected and filtered
+    component.toggleSelection(cottonCategory);
+    expect(component.selectedMaterial()).toBe('cotton');
+    expect(component.filteredFabrics().length).toBe(2);
+
+    // Deselect Cotton -> selection cleared and unfiltered content restored
+    component.toggleSelection(cottonCategory);
+    expect(component.selectedMaterial()).toBeNull();
+    expect(component.filteredFabrics().length).toBe(3);
+  });
+
+  it('should deduplicate fabric thumbnails if duplicates exist in mock data', () => {
+    const articleWithDuplicates: ArticleDetail = {
+      ...mockArticleDetail,
+      materials: [
+        { id: 'cotton', name: 'Cotton', isVisible: true },
+        { id: 'cotton', name: 'Cotton', isVisible: true },
+      ],
+    };
+    component.articleFabrics.set([]);
+    component.article.set(articleWithDuplicates);
+    expect(component.fabricCategory().length).toBe(1);
+    expect(component.fabricCategory()[0].name).toBe('Cotton');
+  });
+
+  it('should call getFabricsByArticleId when loading article and set articleFabrics', () => {
+    expect(articleService.getFabricsByArticleId).toHaveBeenCalledWith('art_shirt');
+    expect(component.articleFabrics().length).toBe(2);
+  });
+
+  it('should scroll materials track right when onScrollMaterialsRight is called', () => {
+    const fakeElement = {
+      scrollBy: vi.fn(),
+    } as unknown as HTMLElement;
+
+    component.onScrollMaterialsRight(fakeElement);
+    expect(fakeElement.scrollBy).toHaveBeenCalledWith({ left: 160, behavior: 'smooth' });
   });
 });

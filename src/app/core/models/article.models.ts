@@ -36,6 +36,11 @@ export interface ArticleFabricItem {
   description?: string;
 }
 
+export interface ArticleFabricMapping {
+  articleId: string;
+  fabricIds: string[];
+}
+
 export interface ArticlePromoBanner {
   id: string;
   title: string;
@@ -47,11 +52,13 @@ export interface ArticlePromoBanner {
 
 export interface ArticleDetail {
   id: string;
+  articleId?: string;
   name: string;
   imagePath?: string;
   imageUrl?: string;
   category: string;
   startingPrice?: number;
+  fabricIds?: string[];
   materials: FabricCategoryItem[];
   fabricCategory?: FabricCategoryItem[];
   banner?: ArticlePromoBanner;

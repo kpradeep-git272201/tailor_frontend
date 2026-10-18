@@ -153,4 +153,57 @@ describe('ArticleService', () => {
     const req2 = httpMock.expectOne('assets/mock-data/articles/articles.json');
     req2.flush(mockArticles);
   });
+
+  it('should map article to fabrics using IDs with getFabricsByArticleId', () => {
+    const mockFabrics = [
+      { id: 'cotton', fabricId: 'cotton', name: 'Cotton', imagePath: 'assets/images/articles/cotton-fabric.png' },
+      { id: 'silk', fabricId: 'silk', name: 'Silk', imagePath: 'assets/images/articles/slik-fabric.png' },
+      { id: 'linen', fabricId: 'linen', name: 'Linen', imagePath: 'assets/images/articles/linen-fabric.png' },
+    ];
+
+    const testArticles: ArticleDetail[] = [
+      {
+        ...mockArticles[0],
+        articleId: 'art_shirt',
+        fabricIds: ['cotton', 'silk'],
+      },
+    ];
+
+    let resultFabrics: any[] | undefined;
+    service.getFabricsByArticleId('art_shirt').subscribe((fabrics) => {
+      resultFabrics = fabrics;
+    });
+
+    const reqArticles = httpMock.expectOne('assets/mock-data/articles/articles.json');
+    reqArticles.flush(testArticles);
+
+    const reqFabrics = httpMock.expectOne('assets/mock-data/fabric/fabric.json');
+    reqFabrics.flush(mockFabrics);
+
+    expect(resultFabrics).toBeDefined();
+    expect(resultFabrics?.length).toBe(2);
+    expect(resultFabrics?.[0].name).toBe('Cotton');
+    expect(resultFabrics?.[1].name).toBe('Silk');
+  });
+
+  it('should return empty array for unknown articleId or empty string in getFabricsByArticleId', () => {
+    let resultUnknown: any[] | undefined;
+    service.getFabricsByArticleId('unknown_id').subscribe((res) => {
+      resultUnknown = res;
+    });
+
+    const reqArticles = httpMock.expectOne('assets/mock-data/articles/articles.json');
+    reqArticles.flush(mockArticles);
+
+    const reqFabrics = httpMock.expectOne('assets/mock-data/fabric/fabric.json');
+    reqFabrics.flush([]);
+
+    expect(resultUnknown).toEqual([]);
+
+    let resultEmpty: any[] | undefined;
+    service.getFabricsByArticleId('').subscribe((res) => {
+      resultEmpty = res;
+    });
+    expect(resultEmpty).toEqual([]);
+  });
 });
