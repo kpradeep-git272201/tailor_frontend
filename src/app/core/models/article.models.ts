@@ -1,17 +1,33 @@
-export interface ArticleMaterial {
+export interface FabricCategoryItem {
   id: string;
   name: string;
-  imageUrl: string;
+  fabricCategoryName?: string;
+  imagePath?: string;
+  imageUrl?: string;
+  fabricCategoryImagePath?: string;
+  pricePerMeter?: number;
   description?: string;
+  selected?: boolean;
+  isTrending?: boolean;
+  isFeatured?: boolean;
 }
+
+export type ArticleMaterial = FabricCategoryItem;
 
 export interface ArticleFabricItem {
   id: string;
   name: string;
+  fabricName?: string;
+  categoryName?: string;
   material: string;
-  imageUrl: string;
+  fabricCategory?: string;
+  imagePath?: string;
+  imageUrl?: string;
   price?: number;
+  pricePerMeter?: number;
   rating?: number;
+  isTrending?: boolean;
+  isFeatured?: boolean;
   tag?: string;
   description?: string;
 }
@@ -20,17 +36,21 @@ export interface ArticlePromoBanner {
   id: string;
   title: string;
   subtext?: string;
-  imageUrl: string;
+  imagePath?: string;
+  imageUrl?: string;
   actionRoute?: string;
 }
 
 export interface ArticleDetail {
   id: string;
   name: string;
-  imageUrl: string;
+  imagePath?: string;
+  imageUrl?: string;
   category: string;
   startingPrice?: number;
-  materials: ArticleMaterial[];
+  materials: FabricCategoryItem[];
+  fabricCategory?: FabricCategoryItem[];
   banner?: ArticlePromoBanner;
   fabrics: ArticleFabricItem[];
+  articlesCategories?: ArticleFabricItem[];
 }

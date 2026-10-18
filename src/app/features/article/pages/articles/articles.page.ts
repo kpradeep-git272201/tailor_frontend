@@ -19,7 +19,7 @@ import { ArticleService } from '../../../../core/services/article.service';
 import {
   ArticleDetail,
   ArticleFabricItem,
-  ArticleMaterial,
+  FabricCategoryItem,
 } from '../../../../core/models/article.models';
 
 export interface NavTabItem {
@@ -71,8 +71,22 @@ export class ArticlesPage implements OnInit {
     addIcons({ checkmarkCircle, 'checkmark-circle': checkmarkCircle });
   }
 
-  // Filtered fabrics list based on search and material selection
-  public readonly filteredFabrics = computed(() => {
+  // Fabric categories list conforming to the user's reference code
+  public readonly fabricCategory = computed<FabricCategoryItem[]>(() => {
+    const art = this.article();
+    if (!art) return [];
+    const list = art.fabricCategory || art.materials || [];
+    const activeId = this.selectedMaterial();
+    return list.map((item) => ({
+      ...item,
+      fabricCategoryName: item.fabricCategoryName || item.name,
+      fabricCategoryImagePath: item.fabricCategoryImagePath || item.imagePath || item.imageUrl || '',
+      selected: activeId ? item.id.toLowerCase() === activeId.toLowerCase() : false,
+    }));
+  });
+
+  // Filtered fabrics list based on search and fabricCategory selection
+  public readonly filteredFabrics = computed<ArticleFabricItem[]>(() => {
     const art = this.article();
     if (!art || !art.fabrics) return [];
 
@@ -80,7 +94,7 @@ export class ArticlesPage implements OnInit {
     const materialId = this.selectedMaterial();
     if (materialId) {
       const match = list.filter(
-        (f) => f.material?.toLowerCase() === materialId.toLowerCase()
+        (f) => (f.fabricCategory || f.material)?.toLowerCase() === materialId.toLowerCase()
       );
       if (match.length > 0) {
         list = match;
@@ -92,6 +106,7 @@ export class ArticlesPage implements OnInit {
       list = list.filter(
         (f) =>
           f.name.toLowerCase().includes(query) ||
+          f.fabricName?.toLowerCase().includes(query) ||
           f.material?.toLowerCase().includes(query) ||
           f.tag?.toLowerCase().includes(query)
       );
@@ -99,6 +114,11 @@ export class ArticlesPage implements OnInit {
 
     return list;
   });
+
+  // Alias for articlesCategories matching reference code
+  public get articlesCategories(): ArticleFabricItem[] {
+    return this.filteredFabrics();
+  }
 
   public ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -126,12 +146,24 @@ export class ArticlesPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  public onSelectMaterial(material: ArticleMaterial): void {
-    if (this.selectedMaterial() === material.id) {
+  public toggleSelection(fabCat: FabricCategoryItem): void {
+    if (this.selectedMaterial() === fabCat.id) {
       this.selectedMaterial.set(null);
     } else {
-      this.selectedMaterial.set(material.id);
+      this.selectedMaterial.set(fabCat.id);
     }
+  }
+
+  public onSelectMaterial(material: FabricCategoryItem): void {
+    this.toggleSelection(material);
+  }
+
+  public selectedFabric(fabric: ArticleFabricItem): void {
+    this.router.navigate(['/fabrics']);
+  }
+
+  public onSelectFabric(fabric: ArticleFabricItem): void {
+    this.selectedFabric(fabric);
   }
 
   public onSearchInput(event: Event): void {
@@ -143,8 +175,11 @@ export class ArticlesPage implements OnInit {
     this.searchQuery.set('');
   }
 
-  public onSelectFabric(fabric: ArticleFabricItem): void {
-    this.router.navigate(['/fabrics']);
+  public onImageError(event: Event, fallbackPath: string): void {
+    const img = event.target as HTMLImageElement;
+    if (img && !img.src.includes(fallbackPath)) {
+      img.src = fallbackPath;
+    }
   }
 
   public onSelectTab(tabId: string): void {

@@ -17,16 +17,32 @@ describe('ArticlesPage', () => {
   const mockArticleDetail: ArticleDetail = {
     id: 'art_shirt',
     name: 'Shirt',
+    imagePath: 'assets/images/articles/shirt.jpg',
     imageUrl: 'assets/images/articles/shirt.jpg',
     category: 'shirts',
     startingPrice: 399,
     materials: [
-      { id: 'cotton', name: 'Cotton', imageUrl: 'assets/images/articles/material_cotton.png' },
-      { id: 'linen', name: 'Linen', imageUrl: 'assets/images/articles/material_linen.png' },
+      {
+        id: 'cotton',
+        name: 'Cotton',
+        imagePath: 'assets/images/articles/material_cotton.png',
+        imageUrl: 'assets/images/articles/material_cotton.png',
+        pricePerMeter: 349,
+        isTrending: true,
+      },
+      {
+        id: 'linen',
+        name: 'Linen',
+        imagePath: 'assets/images/articles/material_linen.png',
+        imageUrl: 'assets/images/articles/material_linen.png',
+        pricePerMeter: 499,
+        isFeatured: true,
+      },
     ],
     banner: {
       id: 'promo_shirt',
       title: 'Summer vs Winter on Tailoring Services',
+      imagePath: 'assets/images/articles/summer_winter_banner_ref.png',
       imageUrl: 'assets/images/articles/summer_winter_banner_ref.png',
     },
     fabrics: [
@@ -34,25 +50,35 @@ describe('ArticlesPage', () => {
         id: 'fab_1',
         name: 'Mint Mandarin Shirt - Back',
         material: 'cotton',
+        imagePath: 'assets/images/articles/shirt_back.png',
         imageUrl: 'assets/images/articles/shirt_back.png',
         price: 499,
+        pricePerMeter: 499,
         rating: 4.9,
+        isTrending: true,
       },
       {
         id: 'fab_2',
         name: 'Mint Mandarin Shirt - Front',
         material: 'cotton',
+        imagePath: 'assets/images/articles/shirt_front.png',
         imageUrl: 'assets/images/articles/shirt_front.png',
         price: 499,
+        pricePerMeter: 499,
         rating: 4.8,
+        isTrending: false,
+        tag: 'Popular',
       },
       {
         id: 'fab_3',
         name: 'Linen Classic',
         material: 'linen',
+        imagePath: 'assets/images/home/hero_banner_linen.jpg',
         imageUrl: 'assets/images/home/hero_banner_linen.jpg',
         price: 649,
+        pricePerMeter: 649,
         rating: 4.8,
+        isTrending: false,
       },
     ],
   };
@@ -119,6 +145,13 @@ describe('ArticlesPage', () => {
     component.onClearSearch();
     expect(component.searchQuery()).toBe('');
     expect(component.filteredFabrics().length).toBe(3);
+  });
+
+  it('should handle broken images gracefully with fallback', () => {
+    const imgElement = { src: 'broken-image.png' } as HTMLImageElement;
+    const errorEvent = { target: imgElement } as unknown as Event;
+    component.onImageError(errorEvent, 'assets/images/articles/shirt.jpg');
+    expect(imgElement.src).toBe('assets/images/articles/shirt.jpg');
   });
 
   it('should navigate back to /home on onGoBack', () => {

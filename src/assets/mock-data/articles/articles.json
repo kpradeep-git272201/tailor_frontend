@@ -2,6 +2,7 @@
   {
     "id": "art_shirt",
     "name": "Shirt",
+    "imagePath": "assets/images/articles/shirt.jpg",
     "imageUrl": "assets/images/articles/shirt.jpg",
     "category": "shirts",
     "startingPrice": 399,
@@ -9,93 +10,134 @@
       {
         "id": "cotton",
         "name": "Cotton",
-        "imageUrl": "assets/images/articles/material_cotton.png"
+        "fabricCategoryName": "Cotton",
+        "imagePath": "assets/images/articles/material_cotton.png",
+        "imageUrl": "assets/images/articles/material_cotton.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_cotton.png",
+        "pricePerMeter": 349,
+        "isTrending": true,
+        "selected": true
       },
       {
         "id": "linen",
         "name": "Linen",
-        "imageUrl": "assets/images/articles/material_linen.png"
+        "fabricCategoryName": "Linen",
+        "imagePath": "assets/images/articles/material_linen.png",
+        "imageUrl": "assets/images/articles/material_linen.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_linen.png",
+        "pricePerMeter": 499,
+        "isFeatured": true,
+        "selected": false
       },
       {
         "id": "silk",
         "name": "Silk",
-        "imageUrl": "assets/images/articles/material_silk.png"
+        "fabricCategoryName": "Silk",
+        "imagePath": "assets/images/articles/material_silk.png",
+        "imageUrl": "assets/images/articles/material_silk.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_silk.png",
+        "pricePerMeter": 899,
+        "isFeatured": true,
+        "selected": false
       },
       {
         "id": "denim",
         "name": "Denim",
-        "imageUrl": "assets/images/articles/material_denim.png"
+        "fabricCategoryName": "Denim",
+        "imagePath": "assets/images/articles/material_denim.png",
+        "imageUrl": "assets/images/articles/material_denim.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_denim.png",
+        "pricePerMeter": 449,
+        "isTrending": false,
+        "selected": false
       },
       {
         "id": "polycotton",
         "name": "Poly Cotton",
-        "imageUrl": "assets/images/articles/material_polycotton.png"
+        "fabricCategoryName": "Poly Cotton",
+        "imagePath": "assets/images/articles/material_polycotton.png",
+        "imageUrl": "assets/images/articles/material_polycotton.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_polycotton.png",
+        "pricePerMeter": 299,
+        "isTrending": false,
+        "selected": false
       }
     ],
     "banner": {
       "id": "promo_shirt_summer_winter",
       "title": "Summer vs Winter on Tailoring Services",
       "subtext": "Tailored perfection in 48 hours",
+      "imagePath": "assets/images/articles/summer_winter_banner_ref.png",
       "imageUrl": "assets/images/articles/summer_winter_banner_ref.png"
     },
     "fabrics": [
       {
         "id": "fab_shirt_mint_back",
-        "name": "Mint Mandarin Shirt - Back",
+        "name": "Mint Mandarin Shirt",
+        "fabricName": "Mint Mandarin Shirt",
+        "categoryName": "Shirt",
         "material": "cotton",
+        "fabricCategory": "cotton",
+        "imagePath": "assets/images/articles/shirt_back.png",
         "imageUrl": "assets/images/articles/shirt_back.png",
         "price": 499,
+        "pricePerMeter": 499,
         "rating": 4.9,
-        "tag": "Trending"
+        "isTrending": true,
+        "isFeatured": false
       },
       {
         "id": "fab_shirt_mint_front",
-        "name": "Mint Mandarin Shirt - Front",
+        "name": "Mint Mandarin Shirt",
+        "fabricName": "Mint Mandarin Shirt",
+        "categoryName": "Shirt",
         "material": "cotton",
+        "fabricCategory": "cotton",
+        "imagePath": "assets/images/articles/shirt_front.png",
         "imageUrl": "assets/images/articles/shirt_front.png",
         "price": 499,
+        "pricePerMeter": 499,
         "rating": 4.8,
+        "isTrending": false,
+        "isFeatured": true,
         "tag": "Popular"
       },
       {
         "id": "fab_shirt_blue_cloth",
-        "name": "Classic Indigo Cotton",
+        "name": "Royal Blue Fabric",
+        "fabricName": "Royal Blue Fabric",
+        "categoryName": "Shirt",
         "material": "cotton",
+        "fabricCategory": "cotton",
+        "imagePath": "assets/images/articles/fabric_blue_cloth.png",
         "imageUrl": "assets/images/articles/fabric_blue_cloth.png",
         "price": 499,
-        "rating": 4.8
-      },
-      {
-        "id": "fab_shirt_linen",
-        "name": "Bespoke Linen Weave",
-        "material": "linen",
-        "imageUrl": "assets/images/home/hero_banner_linen.jpg",
-        "price": 649,
+        "pricePerMeter": 499,
         "rating": 4.8,
-        "tag": "Premium"
-      },
-      {
-        "id": "fab_shirt_silk",
-        "name": "Emerald Royal Silk Shirt",
-        "material": "silk",
-        "imageUrl": "assets/images/home/fabric_silk_green.jpg",
-        "price": 899,
-        "rating": 4.9,
-        "tag": "Luxury"
+        "isTrending": false,
+        "isFeatured": false
       },
       {
         "id": "fab_shirt_cotton_blue",
-        "name": "Oxford Indigo Blue Cotton",
+        "name": "Oxford Blue Cotton",
+        "fabricName": "Oxford Blue Cotton",
+        "categoryName": "Shirt",
         "material": "cotton",
+        "fabricCategory": "cotton",
+        "imagePath": "assets/images/home/fabric_cotton_blue.jpg",
         "imageUrl": "assets/images/home/fabric_cotton_blue.jpg",
         "price": 549,
-        "rating": 4.7
+        "pricePerMeter": 549,
+        "rating": 4.7,
+        "isTrending": false,
+        "isFeatured": false
       }
     ]
   },
   {
     "id": "art_pant",
     "name": "Pant",
+    "imagePath": "assets/images/articles/pant.jpg",
     "imageUrl": "assets/images/articles/pant.jpg",
     "category": "pants",
     "startingPrice": 499,
@@ -103,53 +145,74 @@
       {
         "id": "cotton",
         "name": "Cotton",
-        "imageUrl": "assets/images/articles/material_cotton.png"
+        "fabricCategoryName": "Cotton",
+        "imagePath": "assets/images/articles/material_cotton.png",
+        "imageUrl": "assets/images/articles/material_cotton.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_cotton.png",
+        "pricePerMeter": 349,
+        "isTrending": true,
+        "selected": true
       },
       {
         "id": "linen",
         "name": "Linen",
-        "imageUrl": "assets/images/articles/material_linen.png"
+        "fabricCategoryName": "Linen",
+        "imagePath": "assets/images/articles/material_linen.png",
+        "imageUrl": "assets/images/articles/material_linen.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_linen.png",
+        "pricePerMeter": 499,
+        "selected": false
       },
       {
         "id": "denim",
         "name": "Denim",
-        "imageUrl": "assets/images/articles/material_denim.png"
+        "fabricCategoryName": "Denim",
+        "imagePath": "assets/images/articles/material_denim.png",
+        "imageUrl": "assets/images/articles/material_denim.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_denim.png",
+        "pricePerMeter": 449,
+        "selected": false
       },
       {
         "id": "polycotton",
         "name": "Poly Cotton",
-        "imageUrl": "assets/images/articles/material_polycotton.png"
+        "fabricCategoryName": "Poly Cotton",
+        "imagePath": "assets/images/articles/material_polycotton.png",
+        "imageUrl": "assets/images/articles/material_polycotton.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_polycotton.png",
+        "pricePerMeter": 299,
+        "selected": false
       }
     ],
     "banner": {
       "id": "promo_pant_summer_winter",
       "title": "Summer vs Winter on Tailoring Services",
       "subtext": "Custom fit trousers & chinos",
+      "imagePath": "assets/images/articles/summer_winter_banner_ref.png",
       "imageUrl": "assets/images/articles/summer_winter_banner_ref.png"
     },
     "fabrics": [
       {
         "id": "fab_pant_chinos",
         "name": "Custom Tailored Slim Chino",
+        "fabricName": "Custom Tailored Slim Chino",
+        "categoryName": "Pant",
         "material": "cotton",
+        "fabricCategory": "cotton",
+        "imagePath": "assets/images/articles/pant.jpg",
         "imageUrl": "assets/images/articles/pant.jpg",
         "price": 599,
+        "pricePerMeter": 599,
         "rating": 4.9,
+        "isTrending": true,
         "tag": "Best Fit"
-      },
-      {
-        "id": "fab_pant_denim",
-        "name": "Raw Indigo Denim Trousers",
-        "material": "denim",
-        "imageUrl": "assets/images/home/fabric_cotton_blue.jpg",
-        "price": 699,
-        "rating": 4.8
       }
     ]
   },
   {
     "id": "art_kurta",
     "name": "Kurta",
+    "imagePath": "assets/images/articles/kurta.jpg",
     "imageUrl": "assets/images/articles/kurta.jpg",
     "category": "kurta",
     "startingPrice": 599,
@@ -157,49 +220,64 @@
       {
         "id": "cotton",
         "name": "Cotton",
-        "imageUrl": "assets/images/articles/material_cotton.png"
+        "fabricCategoryName": "Cotton",
+        "imagePath": "assets/images/articles/material_cotton.png",
+        "imageUrl": "assets/images/articles/material_cotton.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_cotton.png",
+        "pricePerMeter": 349,
+        "isTrending": true,
+        "selected": true
       },
       {
         "id": "silk",
         "name": "Silk",
-        "imageUrl": "assets/images/articles/material_silk.png"
+        "fabricCategoryName": "Silk",
+        "imagePath": "assets/images/articles/material_silk.png",
+        "imageUrl": "assets/images/articles/material_silk.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_silk.png",
+        "pricePerMeter": 899,
+        "selected": false
       },
       {
         "id": "linen",
         "name": "Linen",
-        "imageUrl": "assets/images/articles/material_linen.png"
+        "fabricCategoryName": "Linen",
+        "imagePath": "assets/images/articles/material_linen.png",
+        "imageUrl": "assets/images/articles/material_linen.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_linen.png",
+        "pricePerMeter": 499,
+        "selected": false
       }
     ],
     "banner": {
       "id": "promo_kurta_summer_winter",
       "title": "Summer vs Winter on Tailoring Services",
       "subtext": "Traditional festive & casual cuts",
+      "imagePath": "assets/images/articles/summer_winter_banner_ref.png",
       "imageUrl": "assets/images/articles/summer_winter_banner_ref.png"
     },
     "fabrics": [
       {
         "id": "fab_kurta_festive",
         "name": "Crimson Festive Pathani Kurta",
+        "fabricName": "Crimson Festive Pathani Kurta",
+        "categoryName": "Kurta",
         "material": "cotton",
+        "fabricCategory": "cotton",
+        "imagePath": "assets/images/articles/kurta.jpg",
         "imageUrl": "assets/images/articles/kurta.jpg",
         "price": 699,
+        "pricePerMeter": 699,
         "rating": 4.9,
+        "isTrending": true,
         "tag": "Festival"
-      },
-      {
-        "id": "fab_kurta_silk",
-        "name": "Banarasi Emerald Silk Kurta",
-        "material": "silk",
-        "imageUrl": "assets/images/home/fabric_silk_green.jpg",
-        "price": 1099,
-        "rating": 4.9,
-        "tag": "Royal"
       }
     ]
   },
   {
     "id": "art_blouse",
     "name": "Blouse",
+    "imagePath": "assets/images/articles/blouse.jpg",
     "imageUrl": "assets/images/articles/blouse.jpg",
     "category": "blouse",
     "startingPrice": 699,
@@ -207,82 +285,100 @@
       {
         "id": "silk",
         "name": "Silk",
-        "imageUrl": "assets/images/articles/material_silk.png"
+        "fabricCategoryName": "Silk",
+        "imagePath": "assets/images/articles/material_silk.png",
+        "imageUrl": "assets/images/articles/material_silk.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_silk.png",
+        "pricePerMeter": 899,
+        "selected": true
       },
       {
         "id": "cotton",
         "name": "Cotton",
-        "imageUrl": "assets/images/articles/material_cotton.png"
-      },
-      {
-        "id": "polycotton",
-        "name": "Poly Cotton",
-        "imageUrl": "assets/images/articles/material_polycotton.png"
+        "fabricCategoryName": "Cotton",
+        "imagePath": "assets/images/articles/material_cotton.png",
+        "imageUrl": "assets/images/articles/material_cotton.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_cotton.png",
+        "pricePerMeter": 349,
+        "isTrending": true,
+        "selected": false
       }
     ],
     "banner": {
       "id": "promo_blouse_summer_winter",
       "title": "Summer vs Winter on Tailoring Services",
       "subtext": "Designer blouse cutting & latkans",
+      "imagePath": "assets/images/articles/summer_winter_banner_ref.png",
       "imageUrl": "assets/images/articles/summer_winter_banner_ref.png"
     },
     "fabrics": [
       {
         "id": "fab_blouse_royal",
         "name": "Royal Blue Deep Back Blouse",
+        "fabricName": "Royal Blue Deep Back Blouse",
+        "categoryName": "Blouse",
         "material": "silk",
+        "fabricCategory": "silk",
+        "imagePath": "assets/images/articles/blouse.jpg",
         "imageUrl": "assets/images/articles/blouse.jpg",
         "price": 799,
+        "pricePerMeter": 799,
         "rating": 4.9,
+        "isTrending": true,
         "tag": "Designer"
-      },
-      {
-        "id": "fab_blouse_brocade",
-        "name": "Golden Brocade Silk Weave",
-        "material": "silk",
-        "imageUrl": "assets/images/home/fabric_silk_green.jpg",
-        "price": 999,
-        "rating": 4.8
       }
     ]
   },
   {
     "id": "art_suit",
     "name": "Suit",
+    "imagePath": "assets/images/articles/suit.jpg",
     "imageUrl": "assets/images/articles/suit.jpg",
     "category": "suit",
     "startingPrice": 2499,
     "materials": [
       {
-        "id": "wool",
-        "name": "Wool",
-        "imageUrl": "assets/images/articles/material_polycotton.png"
-      },
-      {
         "id": "linen",
         "name": "Linen",
-        "imageUrl": "assets/images/articles/material_linen.png"
+        "fabricCategoryName": "Linen",
+        "imagePath": "assets/images/articles/material_linen.png",
+        "imageUrl": "assets/images/articles/material_linen.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_linen.png",
+        "pricePerMeter": 499,
+        "selected": true
       },
       {
         "id": "silk",
         "name": "Silk",
-        "imageUrl": "assets/images/articles/material_silk.png"
+        "fabricCategoryName": "Silk",
+        "imagePath": "assets/images/articles/material_silk.png",
+        "imageUrl": "assets/images/articles/material_silk.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_silk.png",
+        "pricePerMeter": 899,
+        "selected": false
       }
     ],
     "banner": {
       "id": "promo_suit_summer_winter",
       "title": "Summer vs Winter on Tailoring Services",
       "subtext": "2-piece & 3-piece bespoke tailoring",
+      "imagePath": "assets/images/articles/summer_winter_banner_ref.png",
       "imageUrl": "assets/images/articles/summer_winter_banner_ref.png"
     },
     "fabrics": [
       {
         "id": "fab_suit_navy",
         "name": "Midnight Navy Italian Cut 2-Piece",
+        "fabricName": "Midnight Navy Italian Cut 2-Piece",
+        "categoryName": "Suit",
         "material": "wool",
+        "fabricCategory": "wool",
+        "imagePath": "assets/images/articles/suit.jpg",
         "imageUrl": "assets/images/articles/suit.jpg",
         "price": 2799,
+        "pricePerMeter": 2799,
         "rating": 5.0,
+        "isTrending": true,
         "tag": "Bespoke"
       }
     ]
@@ -290,6 +386,7 @@
   {
     "id": "art_sherwani",
     "name": "Sherwani",
+    "imagePath": "assets/images/articles/sherwani.jpg",
     "imageUrl": "assets/images/articles/sherwani.jpg",
     "category": "sherwani",
     "startingPrice": 3499,
@@ -297,28 +394,35 @@
       {
         "id": "silk",
         "name": "Silk",
-        "imageUrl": "assets/images/articles/material_silk.png"
-      },
-      {
-        "id": "velvet",
-        "name": "Velvet",
-        "imageUrl": "assets/images/articles/material_polycotton.png"
+        "fabricCategoryName": "Silk",
+        "imagePath": "assets/images/articles/material_silk.png",
+        "imageUrl": "assets/images/articles/material_silk.png",
+        "fabricCategoryImagePath": "assets/images/articles/material_silk.png",
+        "pricePerMeter": 899,
+        "selected": true
       }
     ],
     "banner": {
       "id": "promo_sherwani_summer_winter",
       "title": "Summer vs Winter on Tailoring Services",
       "subtext": "Royal Groom Wedding Couture",
+      "imagePath": "assets/images/articles/summer_winter_banner_ref.png",
       "imageUrl": "assets/images/articles/summer_winter_banner_ref.png"
     },
     "fabrics": [
       {
         "id": "fab_sherwani_zari",
         "name": "Zardozi Embroidered Royal Sherwani",
+        "fabricName": "Zardozi Embroidered Royal Sherwani",
+        "categoryName": "Sherwani",
         "material": "silk",
+        "fabricCategory": "silk",
+        "imagePath": "assets/images/articles/sherwani.jpg",
         "imageUrl": "assets/images/articles/sherwani.jpg",
         "price": 3899,
+        "pricePerMeter": 3899,
         "rating": 4.9,
+        "isTrending": true,
         "tag": "Wedding"
       }
     ]

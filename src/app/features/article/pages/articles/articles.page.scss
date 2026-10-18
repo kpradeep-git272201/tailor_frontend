@@ -144,8 +144,9 @@
   .materials-scroll-track {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
-    padding: 2px 16px 6px;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 2px 14px 6px;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
@@ -175,15 +176,15 @@
     }
 
     ion-thumbnail.articles {
-      --size: 64px;
-      width: 64px;
-      height: 64px;
+      --size: 48px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       overflow: hidden;
       margin: 0 auto;
       position: relative;
-      background-color: #f0ece3;
-      box-shadow: 0 2px 8px rgba(20, 43, 74, 0.08);
+      background-color: #ffffff;
+      box-shadow: 0 2px 6px rgba(20, 43, 74, 0.08);
       border: 2px solid transparent;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
@@ -197,23 +198,23 @@
 
       .check-icon {
         position: absolute;
-        bottom: 1px;
-        right: 1px;
-        font-size: 18px;
-        color: var(--app-color-teal);
+        bottom: 0px;
+        right: 0px;
+        font-size: 15px;
+        color: #188c83;
         background: #ffffff;
         border-radius: 50%;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         z-index: 2;
       }
     }
 
     .thumbnail-text {
       font-family: var(--font-body);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--app-color-text-title);
-      margin: 6px 0 0 0;
+      margin: 5px 0 0 0;
       line-height: 1.2;
       text-align: center;
       white-space: nowrap;
@@ -222,12 +223,12 @@
 
     &.selected {
       ion-thumbnail.articles {
-        border-color: var(--app-color-teal);
-        box-shadow: 0 0 0 2.5px var(--app-color-teal), 0 4px 12px rgba(24, 140, 131, 0.25);
+        border-color: #188c83;
+        box-shadow: 0 2px 8px rgba(24, 140, 131, 0.25);
       }
 
       .thumbnail-text {
-        color: var(--app-color-teal);
+        color: #188c83;
         font-weight: 700;
       }
     }
@@ -309,8 +310,8 @@
 
     .fabric-media {
       position: relative;
-      height: 168px;
-      background-color: #eae8e1;
+      height: 148px;
+      background-color: #f1eee6;
       overflow: hidden;
 
       .fabric-img {
@@ -324,14 +325,23 @@
         position: absolute;
         top: 8px;
         left: 8px;
-        background: var(--app-color-teal);
+        background: #188c83;
         color: #ffffff;
         font-size: 9.5px;
         font-weight: 700;
-        padding: 2px 7px;
+        padding: 2.5px 7px;
         border-radius: 6px;
-        letter-spacing: 0.01em;
+        letter-spacing: 0.02em;
         z-index: 2;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+
+        &.trending-badge {
+          background: #188c83;
+        }
+
+        &.popular-badge {
+          background: #188c83;
+        }
       }
     }
 

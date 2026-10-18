@@ -1,0 +1,47 @@
+[
+  {
+    "id": "cotton",
+    "name": "Cotton",
+    "imagePath": "assets/images/articles/material_cotton.png",
+    "imageUrl": "assets/images/articles/material_cotton.png",
+    "pricePerMeter": 349,
+    "description": "100% Breathable Organic Cotton",
+    "isTrending": true
+  },
+  {
+    "id": "linen",
+    "name": "Linen",
+    "imagePath": "assets/images/articles/material_linen.png",
+    "imageUrl": "assets/images/articles/material_linen.png",
+    "pricePerMeter": 499,
+    "description": "Premium French Flax Linen",
+    "isFeatured": true
+  },
+  {
+    "id": "silk",
+    "name": "Silk",
+    "imagePath": "assets/images/articles/material_silk.png",
+    "imageUrl": "assets/images/articles/material_silk.png",
+    "pricePerMeter": 899,
+    "description": "Mulberry Natural Raw Silk",
+    "isFeatured": true
+  },
+  {
+    "id": "denim",
+    "name": "Denim",
+    "imagePath": "assets/images/articles/material_denim.png",
+    "imageUrl": "assets/images/articles/material_denim.png",
+    "pricePerMeter": 449,
+    "description": "Durable Twill Indigo Denim",
+    "isTrending": false
+  },
+  {
+    "id": "polycotton",
+    "name": "Poly Cotton",
+    "imagePath": "assets/images/articles/material_polycotton.png",
+    "imageUrl": "assets/images/articles/material_polycotton.png",
+    "pricePerMeter": 299,
+    "description": "Easy-Care Wrinkle-Resistant Blend",
+    "isTrending": false
+  }
+]

@@ -14,7 +14,7 @@ import { TopRatedFabric } from '../models/home.models';
 })
 export class FabricService {
   private readonly http = inject(HttpClient);
-  private readonly mockUrl = 'assets/mock-data/fabrics/fabrics.json';
+  private readonly mockUrl = 'assets/mock-data/fabric/fabric-category.json';
 
   private fabrics$?: Observable<TopRatedFabric[]>;
 

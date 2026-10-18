@@ -36,27 +36,28 @@
       </div>
     </section>
 
-    <!-- Materials / Fabric Types Horizontal Carousel using ion-thumbnail -->
-    @if (article()?.materials && (article()?.materials)!.length > 0) {
-      <section class="materials-section" aria-label="Fabric Materials">
+    <!-- Fabric Categories Horizontal Row using ion-thumbnail (matches reference code) -->
+    @if (fabricCategory().length > 0) {
+      <section class="materials-section" aria-label="Fabric Categories">
         <div class="materials-scroll-track">
-          @for (material of article()?.materials; track material.id) {
+          @for (fabCat of fabricCategory(); track fabCat.id) {
             <div
               class="category-item"
-              [class.selected]="selectedMaterial() === material.id"
-              (click)="onSelectMaterial(material)"
+              [class.selected]="fabCat.selected"
+              (click)="toggleSelection(fabCat)"
               role="button"
               tabindex="0"
-              [attr.aria-label]="'Filter by ' + material.name"
+              [attr.aria-label]="'Filter by ' + fabCat.fabricCategoryName"
             >
               <ion-thumbnail class="articles checked">
                 <img
-                  [src]="material.imageUrl"
-                  [alt]="material.name"
+                  [src]="fabCat.fabricCategoryImagePath || fabCat.imagePath"
+                  [alt]="fabCat.fabricCategoryName"
                   class="material-img"
                   loading="lazy"
+                  (error)="onImageError($event, 'assets/images/articles/material_cotton.png')"
                 />
-                @if (selectedMaterial() === material.id) {
+                @if (fabCat.selected) {
                   <ion-icon
                     name="checkmark-circle"
                     class="check-icon"
@@ -64,7 +65,7 @@
                   ></ion-icon>
                 }
               </ion-thumbnail>
-              <p class="thumbnail-text">{{ material.name }}</p>
+              <p class="thumbnail-text">{{ fabCat.fabricCategoryName }}</p>
             </div>
           }
         </div>
@@ -75,15 +76,16 @@
     <section class="promo-banner-section">
       <div class="promo-banner-card" (click)="onSelectTab('fabric')">
         <img
-          [src]="article()?.banner?.imageUrl || 'assets/images/articles/summer_winter_banner_ref.png'"
+          [src]="article()?.banner?.imagePath || article()?.banner?.imageUrl || 'assets/images/articles/summer_winter_banner_ref.png'"
           [alt]="article()?.banner?.title || 'Summer vs Winter on Tailoring Services'"
           class="promo-banner-img"
+          (error)="onImageError($event, 'assets/images/articles/summer_winter_banner_ref.png')"
         />
       </div>
     </section>
 
-    <!-- Section: Fabric By Article using Ionic Grid, Row, Col & Cards -->
-    <section class="top-rated fabric-by-article-section" style="padding-bottom: 20px">
+    <!-- Section: Fabric By Article using Ionic Grid, Row, Col & Cards (matches reference code) -->
+    <div class="top-rated fabric-by-article-section" style="padding-bottom: 20px">
       <h3 class="section-title fs-subtitle section-heading">Fabric By Article</h3>
 
       @if (filteredFabrics().length > 0) {
@@ -91,23 +93,26 @@
           <ion-row>
             @for (fabric of filteredFabrics(); track fabric.id) {
               <ion-col size="6" size-md="4" size-lg="3">
-                <ion-card class="fabric-card" (click)="onSelectFabric(fabric)">
+                <ion-card class="fabric-card" (click)="selectedFabric(fabric)">
                   <div class="fabric-media">
                     <img
-                      [src]="fabric.imageUrl"
+                      [src]="fabric.imagePath || fabric.imageUrl"
                       class="fabric-img"
-                      [alt]="fabric.name"
+                      [alt]="fabric.fabricName || fabric.name"
                       loading="lazy"
+                      (error)="onImageError($event, 'assets/images/articles/shirt_front.png')"
                     />
-                    @if (fabric.tag) {
-                      <span class="fabric-tag-badge">{{ fabric.tag }}</span>
+                    @if (fabric.isTrending) {
+                      <span class="fabric-tag-badge trending-badge">Trending</span>
+                    } @else if (fabric.tag) {
+                      <span class="fabric-tag-badge" [class.popular-badge]="fabric.tag === 'Popular'">{{ fabric.tag }}</span>
                     }
                   </div>
                   <ion-card-header class="fabric-card-header">
                     <ion-card-title class="font-16 fabric-card-title">
-                      <span class="fabric-name-line">{{ fabric.name }}</span>
-                      @if (fabric.price) {
-                        <span class="fabric-price-line">₹{{ fabric.price }}</span>
+                      <span class="fabric-name-line">{{ fabric.fabricName || fabric.name }}</span>
+                      @if (fabric.price || fabric.pricePerMeter) {
+                        <span class="fabric-price-line">₹{{ fabric.price || fabric.pricePerMeter }}</span>
                       }
                     </ion-card-title>
                   </ion-card-header>
@@ -122,7 +127,7 @@
           <button type="button" class="reset-filter-btn" (click)="onClearSearch()">Show All</button>
         </div>
       }
-    </section>
+    </div>
 
     <!-- Bottom Spacer so content clears the fixed bottom bar -->
     <div class="bottom-tabbar-spacer"></div>

@@ -48,7 +48,7 @@ describe('FabricService', () => {
       result = data;
     });
 
-    const req = httpMock.expectOne('assets/mock-data/fabrics/fabrics.json');
+    const req = httpMock.expectOne('assets/mock-data/fabric/fabric-category.json');
     expect(req.request.method).toBe('GET');
     req.flush(mockFabrics);
 
@@ -60,7 +60,7 @@ describe('FabricService', () => {
     service.getFabrics().subscribe((data) => {
       cachedResult = data;
     });
-    httpMock.expectNone('assets/mock-data/fabrics/fabrics.json');
+    httpMock.expectNone('assets/mock-data/fabric/fabric-category.json');
     expect(cachedResult).toEqual(mockFabrics);
   });
 
@@ -71,7 +71,7 @@ describe('FabricService', () => {
       result = data;
     });
 
-    const req = httpMock.expectOne('assets/mock-data/fabrics/fabrics.json');
+    const req = httpMock.expectOne('assets/mock-data/fabric/fabric-category.json');
     req.error(new ProgressEvent('Network error'));
 
     expect(result).toBeDefined();
@@ -81,11 +81,11 @@ describe('FabricService', () => {
 
   it('should reset cache on refreshFabrics', () => {
     service.getFabrics().subscribe();
-    const req1 = httpMock.expectOne('assets/mock-data/fabrics/fabrics.json');
+    const req1 = httpMock.expectOne('assets/mock-data/fabric/fabric-category.json');
     req1.flush(mockFabrics);
 
     service.refreshFabrics().subscribe();
-    const req2 = httpMock.expectOne('assets/mock-data/fabrics/fabrics.json');
+    const req2 = httpMock.expectOne('assets/mock-data/fabric/fabric-category.json');
     req2.flush(mockFabrics);
   });
 });
