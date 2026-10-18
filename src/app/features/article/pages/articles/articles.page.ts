@@ -72,33 +72,56 @@ export class ArticlesPage implements OnInit {
   }
 
   // Fabric categories list conforming to the user's reference code
+  // Dynamically loaded from mock JSON with isVisible / isDefault configuration
   public readonly fabricCategory = computed<FabricCategoryItem[]>(() => {
     const art = this.article();
     if (!art) return [];
     const list = art.fabricCategory || art.materials || [];
     const activeId = this.selectedMaterial();
-    return list.map((item) => ({
-      ...item,
-      fabricCategoryName: item.fabricCategoryName || item.name,
-      fabricCategoryImagePath: item.fabricCategoryImagePath || item.imagePath || item.imageUrl || '',
-      selected: activeId ? item.id.toLowerCase() === activeId.toLowerCase() : false,
-    }));
+
+    // Check if mock data defines visibility flags
+    const hasVisibilityConfig = list.some((item) => item.isVisible !== undefined);
+
+    let displayList: FabricCategoryItem[];
+    if (hasVisibilityConfig) {
+      // Filter out non-visible fabrics (Linen, Silk, Denim, Poly-Cotton) loaded from mock JSON
+      displayList = list.filter(
+        (item) => item.isVisible === true || (item.isVisible === undefined && item.isDefault === true)
+      );
+    } else {
+      displayList = list.filter((item) => item.isVisible !== false);
+    }
+
+    return displayList.map((item) => {
+      const itemId = (item.fabricId || item.id).toLowerCase();
+      const isSelected = activeId
+        ? itemId === activeId.toLowerCase()
+        : !!item.isDefault;
+      return {
+        ...item,
+        fabricCategoryName: item.fabricCategoryName || item.name,
+        fabricCategoryImagePath:
+          item.fabricCategoryImagePath || item.imagePath || item.imageUrl || '',
+        selected: isSelected,
+      };
+    });
   });
 
-  // Filtered fabrics list based on search and fabricCategory selection
+  // Filtered fabrics list based on search and fabricId / fabricCategory relationship
   public readonly filteredFabrics = computed<ArticleFabricItem[]>(() => {
     const art = this.article();
     if (!art || !art.fabrics) return [];
 
     let list = art.fabrics;
     const materialId = this.selectedMaterial();
+
     if (materialId) {
-      const match = list.filter(
-        (f) => (f.fabricCategory || f.material)?.toLowerCase() === materialId.toLowerCase()
-      );
-      if (match.length > 0) {
-        list = match;
-      }
+      const cleanMaterial = materialId.trim().toLowerCase();
+      // Filter categories using relationship: fabricId, fabricCategory, or material
+      list = list.filter((f) => {
+        const itemFabricId = (f.fabricId || f.fabricCategory || f.material || '').toLowerCase();
+        return itemFabricId === cleanMaterial;
+      });
     }
 
     const query = this.searchQuery().trim().toLowerCase();
@@ -108,6 +131,7 @@ export class ArticlesPage implements OnInit {
           f.name.toLowerCase().includes(query) ||
           f.fabricName?.toLowerCase().includes(query) ||
           f.material?.toLowerCase().includes(query) ||
+          f.fabricId?.toLowerCase().includes(query) ||
           f.tag?.toLowerCase().includes(query)
       );
     }
@@ -121,10 +145,25 @@ export class ArticlesPage implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id') || 'art_shirt';
-      this.loadArticle(id);
-    });
+    // Listen for article ID parameter
+    if (this.route?.paramMap) {
+      this.route.paramMap.subscribe((params) => {
+        const id = params.get('id') || 'art_shirt';
+        this.loadArticle(id);
+      });
+    } else {
+      this.loadArticle('art_shirt');
+    }
+
+    // Listen for route query parameter to sync fabric selection
+    if (this.route?.queryParamMap) {
+      this.route.queryParamMap.subscribe((queryParams) => {
+        const fabricParam = queryParams.get('fabric');
+        if (fabricParam && fabricParam.trim() !== '') {
+          this.selectedMaterial.set(fabricParam.trim().toLowerCase());
+        }
+      });
+    }
   }
 
   public loadArticle(id: string): void {
@@ -133,6 +172,14 @@ export class ArticlesPage implements OnInit {
       next: (data) => {
         if (data) {
           this.article.set(data);
+          // If no fabric queryParam was set, default to the default/visible fabric from mock JSON
+          if (!this.selectedMaterial()) {
+            const list = data.fabricCategory || data.materials || [];
+            const defaultFab = list.find((m) => m.isDefault);
+            if (defaultFab) {
+              this.selectedMaterial.set((defaultFab.fabricId || defaultFab.id).toLowerCase());
+            }
+          }
         }
         this.isLoading.set(false);
       },
@@ -147,11 +194,17 @@ export class ArticlesPage implements OnInit {
   }
 
   public toggleSelection(fabCat: FabricCategoryItem): void {
-    if (this.selectedMaterial() === fabCat.id) {
-      this.selectedMaterial.set(null);
-    } else {
-      this.selectedMaterial.set(fabCat.id);
-    }
+    const targetId = (fabCat.fabricId || fabCat.id).toLowerCase();
+    const current = this.selectedMaterial();
+    const newSelection = current && current.toLowerCase() === targetId ? null : targetId;
+    this.selectedMaterial.set(newSelection);
+
+    // Pass selected fabric ID via route query parameter
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: newSelection ? { fabric: newSelection } : { fabric: null },
+      queryParamsHandling: 'merge',
+    });
   }
 
   public onSelectMaterial(material: FabricCategoryItem): void {

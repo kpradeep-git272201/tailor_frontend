@@ -9,6 +9,7 @@
     "materials": [
       {
         "id": "cotton",
+        "fabricId": "cotton",
         "name": "Cotton",
         "fabricCategoryName": "Cotton",
         "imagePath": "assets/images/articles/material_cotton.png",
@@ -16,10 +17,13 @@
         "fabricCategoryImagePath": "assets/images/articles/material_cotton.png",
         "pricePerMeter": 349,
         "isTrending": true,
+        "isDefault": true,
+        "isVisible": true,
         "selected": true
       },
       {
         "id": "linen",
+        "fabricId": "linen",
         "name": "Linen",
         "fabricCategoryName": "Linen",
         "imagePath": "assets/images/articles/material_linen.png",
@@ -27,10 +31,13 @@
         "fabricCategoryImagePath": "assets/images/articles/material_linen.png",
         "pricePerMeter": 499,
         "isFeatured": true,
+        "isDefault": false,
+        "isVisible": false,
         "selected": false
       },
       {
         "id": "silk",
+        "fabricId": "silk",
         "name": "Silk",
         "fabricCategoryName": "Silk",
         "imagePath": "assets/images/articles/material_silk.png",
@@ -38,10 +45,13 @@
         "fabricCategoryImagePath": "assets/images/articles/material_silk.png",
         "pricePerMeter": 899,
         "isFeatured": true,
+        "isDefault": false,
+        "isVisible": false,
         "selected": false
       },
       {
         "id": "denim",
+        "fabricId": "denim",
         "name": "Denim",
         "fabricCategoryName": "Denim",
         "imagePath": "assets/images/articles/material_denim.png",
@@ -49,10 +59,13 @@
         "fabricCategoryImagePath": "assets/images/articles/material_denim.png",
         "pricePerMeter": 449,
         "isTrending": false,
+        "isDefault": false,
+        "isVisible": false,
         "selected": false
       },
       {
         "id": "polycotton",
+        "fabricId": "polycotton",
         "name": "Poly Cotton",
         "fabricCategoryName": "Poly Cotton",
         "imagePath": "assets/images/articles/material_polycotton.png",
@@ -60,6 +73,8 @@
         "fabricCategoryImagePath": "assets/images/articles/material_polycotton.png",
         "pricePerMeter": 299,
         "isTrending": false,
+        "isDefault": false,
+        "isVisible": false,
         "selected": false
       }
     ],
@@ -73,6 +88,7 @@
     "fabrics": [
       {
         "id": "fab_shirt_mint_back",
+        "fabricId": "cotton",
         "name": "Mint Mandarin Shirt",
         "fabricName": "Mint Mandarin Shirt",
         "categoryName": "Shirt",
@@ -88,6 +104,7 @@
       },
       {
         "id": "fab_shirt_mint_front",
+        "fabricId": "cotton",
         "name": "Mint Mandarin Shirt",
         "fabricName": "Mint Mandarin Shirt",
         "categoryName": "Shirt",
@@ -104,11 +121,12 @@
       },
       {
         "id": "fab_shirt_blue_cloth",
+        "fabricId": "denim",
         "name": "Royal Blue Fabric",
         "fabricName": "Royal Blue Fabric",
         "categoryName": "Shirt",
-        "material": "cotton",
-        "fabricCategory": "cotton",
+        "material": "denim",
+        "fabricCategory": "denim",
         "imagePath": "assets/images/articles/fabric_blue_cloth.png",
         "imageUrl": "assets/images/articles/fabric_blue_cloth.png",
         "price": 499,
@@ -119,11 +137,12 @@
       },
       {
         "id": "fab_shirt_cotton_blue",
+        "fabricId": "linen",
         "name": "Oxford Blue Cotton",
         "fabricName": "Oxford Blue Cotton",
         "categoryName": "Shirt",
-        "material": "cotton",
-        "fabricCategory": "cotton",
+        "material": "linen",
+        "fabricCategory": "linen",
         "imagePath": "assets/images/home/fabric_cotton_blue.jpg",
         "imageUrl": "assets/images/home/fabric_cotton_blue.jpg",
         "price": 549,

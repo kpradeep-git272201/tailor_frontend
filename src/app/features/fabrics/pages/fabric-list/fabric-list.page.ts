@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { IonContent } from '@ionic/angular';
 import { FabricService } from '../../../../core/services/fabric.service';
@@ -15,6 +15,7 @@ import { TopRatedFabric } from '../../../../core/models/home.models';
 })
 export class FabricListPage implements OnInit {
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly fabricService = inject(FabricService);
 
   public readonly fabrics = signal<TopRatedFabric[]>([]);
@@ -31,6 +32,12 @@ export class FabricListPage implements OnInit {
   ];
 
   public ngOnInit(): void {
+    this.route.queryParamMap.subscribe((params) => {
+      const fab = params.get('fabric') || params.get('category');
+      if (fab && fab.trim() !== '') {
+        this.selectedCategory.set(fab.trim().toLowerCase());
+      }
+    });
     this.loadFabrics();
   }
 

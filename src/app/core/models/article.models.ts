@@ -1,5 +1,6 @@
 export interface FabricCategoryItem {
   id: string;
+  fabricId?: string;
   name: string;
   fabricCategoryName?: string;
   imagePath?: string;
@@ -10,12 +11,15 @@ export interface FabricCategoryItem {
   selected?: boolean;
   isTrending?: boolean;
   isFeatured?: boolean;
+  isDefault?: boolean;
+  isVisible?: boolean;
 }
 
 export type ArticleMaterial = FabricCategoryItem;
 
 export interface ArticleFabricItem {
   id: string;
+  fabricId?: string;
   name: string;
   fabricName?: string;
   categoryName?: string;

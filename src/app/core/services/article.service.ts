@@ -93,11 +93,11 @@ export class ArticleService {
 
   private getFallbackMaterials(): ArticleMaterial[] {
     return [
-      { id: 'cotton', name: 'Cotton', imagePath: 'assets/images/articles/material_cotton.png', imageUrl: 'assets/images/articles/material_cotton.png', pricePerMeter: 349, isTrending: true },
-      { id: 'linen', name: 'Linen', imagePath: 'assets/images/articles/material_linen.png', imageUrl: 'assets/images/articles/material_linen.png', pricePerMeter: 499, isFeatured: true },
-      { id: 'silk', name: 'Silk', imagePath: 'assets/images/articles/material_silk.png', imageUrl: 'assets/images/articles/material_silk.png', pricePerMeter: 899, isFeatured: true },
-      { id: 'denim', name: 'Denim', imagePath: 'assets/images/articles/material_denim.png', imageUrl: 'assets/images/articles/material_denim.png', pricePerMeter: 449, isTrending: false },
-      { id: 'polycotton', name: 'Poly Cotton', imagePath: 'assets/images/articles/material_polycotton.png', imageUrl: 'assets/images/articles/material_polycotton.png', pricePerMeter: 299, isTrending: false },
+      { id: 'cotton', fabricId: 'cotton', name: 'Cotton', imagePath: 'assets/images/articles/material_cotton.png', imageUrl: 'assets/images/articles/material_cotton.png', pricePerMeter: 349, isTrending: true, isDefault: true, isVisible: true },
+      { id: 'linen', fabricId: 'linen', name: 'Linen', imagePath: 'assets/images/articles/material_linen.png', imageUrl: 'assets/images/articles/material_linen.png', pricePerMeter: 499, isFeatured: true, isDefault: false, isVisible: false },
+      { id: 'silk', fabricId: 'silk', name: 'Silk', imagePath: 'assets/images/articles/material_silk.png', imageUrl: 'assets/images/articles/material_silk.png', pricePerMeter: 899, isFeatured: true, isDefault: false, isVisible: false },
+      { id: 'denim', fabricId: 'denim', name: 'Denim', imagePath: 'assets/images/articles/material_denim.png', imageUrl: 'assets/images/articles/material_denim.png', pricePerMeter: 449, isTrending: false, isDefault: false, isVisible: false },
+      { id: 'polycotton', fabricId: 'polycotton', name: 'Poly Cotton', imagePath: 'assets/images/articles/material_polycotton.png', imageUrl: 'assets/images/articles/material_polycotton.png', pricePerMeter: 299, isTrending: false, isDefault: false, isVisible: false },
     ];
   }
 
@@ -121,8 +121,10 @@ export class ArticleService {
         fabrics: [
           {
             id: 'fab_shirt_mint_back',
+            fabricId: 'cotton',
             name: 'Mint Mandarin Shirt',
             material: 'cotton',
+            fabricCategory: 'cotton',
             imagePath: 'assets/images/articles/shirt_back.png',
             imageUrl: 'assets/images/articles/shirt_back.png',
             price: 499,
@@ -133,8 +135,10 @@ export class ArticleService {
           },
           {
             id: 'fab_shirt_mint_front',
+            fabricId: 'cotton',
             name: 'Mint Mandarin Shirt',
             material: 'cotton',
+            fabricCategory: 'cotton',
             imagePath: 'assets/images/articles/shirt_front.png',
             imageUrl: 'assets/images/articles/shirt_front.png',
             price: 499,
@@ -146,8 +150,10 @@ export class ArticleService {
           },
           {
             id: 'fab_shirt_blue_cloth',
-            name: 'Classic Indigo Cotton',
-            material: 'cotton',
+            fabricId: 'denim',
+            name: 'Classic Indigo Denim',
+            material: 'denim',
+            fabricCategory: 'denim',
             imagePath: 'assets/images/articles/fabric_blue_cloth.png',
             imageUrl: 'assets/images/articles/fabric_blue_cloth.png',
             price: 499,

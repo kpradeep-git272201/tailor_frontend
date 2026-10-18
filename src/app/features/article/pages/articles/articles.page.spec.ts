@@ -94,6 +94,7 @@ describe('ArticlesPage', () => {
           provide: ActivatedRoute,
           useValue: {
             paramMap: of(convertToParamMap({ id: 'art_shirt' })),
+            queryParamMap: of(convertToParamMap({})),
           },
         },
         {
@@ -181,5 +182,86 @@ describe('ArticlesPage', () => {
     component.onSelectTab('fabric');
     expect(component.activeTab()).toBe('fabric');
     expect(navigateSpy).toHaveBeenCalledWith(['/fabrics']);
+  });
+
+  it('should only show visible fabrics in fabricCategory when visibility configuration exists', () => {
+    const articleWithVisibility: ArticleDetail = {
+      ...mockArticleDetail,
+      materials: [
+        {
+          id: 'cotton',
+          fabricId: 'cotton',
+          name: 'Cotton',
+          isDefault: true,
+          isVisible: true,
+        },
+        {
+          id: 'linen',
+          fabricId: 'linen',
+          name: 'Linen',
+          isDefault: false,
+          isVisible: false,
+        },
+      ],
+    };
+    component.article.set(articleWithVisibility);
+    expect(component.fabricCategory().length).toBe(1);
+    expect(component.fabricCategory()[0].name).toBe('Cotton');
+  });
+
+  it('should filter related fabric categories by fabricId relationship', () => {
+    const articleWithFabricIds: ArticleDetail = {
+      ...mockArticleDetail,
+      fabrics: [
+        {
+          id: 'fab_1',
+          fabricId: 'cotton',
+          name: 'Mint Mandarin Shirt - Back',
+          material: 'cotton',
+          price: 499,
+        },
+        {
+          id: 'fab_2',
+          fabricId: 'cotton',
+          name: 'Mint Mandarin Shirt - Front',
+          material: 'cotton',
+          price: 499,
+        },
+        {
+          id: 'fab_3',
+          fabricId: 'denim',
+          name: 'Royal Blue Fabric',
+          material: 'denim',
+          price: 499,
+        },
+      ],
+    };
+    component.article.set(articleWithFabricIds);
+    component.selectedMaterial.set('cotton');
+
+    expect(component.filteredFabrics().length).toBe(2);
+    expect(component.filteredFabrics().every((f) => f.fabricId === 'cotton')).toBe(true);
+
+    // Switch to denim
+    component.selectedMaterial.set('denim');
+    expect(component.filteredFabrics().length).toBe(1);
+    expect(component.filteredFabrics()[0].name).toBe('Royal Blue Fabric');
+  });
+
+  it('should update route query params when a fabric category is clicked', () => {
+    const navigateSpy = vi.spyOn(router, 'navigate');
+    const cottonCategory = mockArticleDetail.materials[0];
+
+    component.toggleSelection(cottonCategory);
+    expect(navigateSpy).toHaveBeenCalledWith([], {
+      relativeTo: expect.anything(),
+      queryParams: { fabric: 'cotton' },
+      queryParamsHandling: 'merge',
+    });
+  });
+
+  it('should handle missing IDs and empty results gracefully', () => {
+    component.selectedMaterial.set('non_existent_fabric');
+    expect(component.filteredFabrics().length).toBe(0);
   });
 });
